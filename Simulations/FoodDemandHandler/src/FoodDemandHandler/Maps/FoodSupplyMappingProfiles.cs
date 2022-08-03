@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Food.Supply.POC.Contracts;
+using MessageQueues.Messages;
 using Population.Business.Food;
+using System.Text.Json;
 
 namespace FoodDemandHandler.Maps
 {
@@ -8,7 +9,14 @@ namespace FoodDemandHandler.Maps
 	{
 		public FoodSupplyMappingProfiles()
 		{
-			CreateMap<Supply, FoodSupply>();
+			var jsonSerializerOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+			CreateMap<AwsSqsRecord, MessageBody<FoodSupply>>()
+				.ForMember(dest => dest.FQN, opt => opt.Ignore())
+				.ForMember(dest => dest.Payload,
+								opt => opt.MapFrom(
+									src => JsonSerializer.Deserialize<FoodSupply>(src.Body, jsonSerializerOptions)
+									)
+								);
 		}
 	}
 }

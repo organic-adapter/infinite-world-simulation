@@ -1,41 +1,63 @@
 using Amazon.Lambda.Core;
 using AutoMapper;
-using Food.Supply.POC.Contracts;
+using Food.POC.Resource;
 using FoodDemandHandler.Maps;
 using MessageQueues;
+using MessageQueues.Messages;
 using Population.Business;
 using Population.Business.Food;
+using System.Text.Json;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace FoodDemandHandler;
 
-public class FoodDemandSubscriberAWS : SubscriberAWS<FoodSupplied, Supply>
+public class FoodDemandSubscriberAWS : SubscriberAWS
 {
 	private readonly IMapper mapper;
 	private readonly PopulationManager populationManager;
 
 	public FoodDemandSubscriberAWS()
 	{
-		var mapperConfig = new MapperConfiguration((options) => 
+		var mapperConfig = new MapperConfiguration((options) =>
 		{
 			options.AddProfile(typeof(FoodSupplyMappingProfiles));
 		});
 		mapper = mapperConfig.CreateMapper();
 		populationManager = new SimplePopulationManager();
 	}
+	//public Stream FunctionHandler(Stream stream, ILambdaContext context)
+	//{
+	//	var resource = new FoodS3Resource();
 
-	public override Supply? FunctionHandler(FoodSupplied message, ILambdaContext context)
+	//	using(var reader = new StreamReader(stream))
+	//	{
+	//		var message = reader.ReadToEnd();
+	//		resource.SaveAsync(message).Wait();
+	//		stream.Position = 0;
+	//	}
+
+	//	return stream;
+
+	//}
+	public override AwsHandlerResponse FunctionHandler(AwsSnsMessage message, ILambdaContext context)
 	{
-		return base.FunctionHandler(message, context);
-	}
+		var jsonSerializerOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+		var records = message.Records;
+		IEnumerable<FoodSupply> supplies = 
+				records
+					.Select(record =>
+							{
+								var obj = JsonSerializer.Deserialize<MessageBody<FoodSupply>>(record.Sns.Message, jsonSerializerOptions);
+								if(obj == null || obj.Payload == null)
+									return new FoodSupply();
+								return obj.Payload;
+							}
+							);
+		if (supplies == null)
+			return AwsHandlerResponse.Error;
 
-	public override Supply? Handle(FoodSupplied message)
-	{
-		var payload = message.GetPayload<Supply>();
-
-		populationManager.Feed(mapper.Map<FoodSupply>(payload));
-
-		return payload;
+		populationManager.Feed(supplies);
+		return new AwsHandlerResponse(true, JsonSerializer.Serialize(supplies));
 	}
 }

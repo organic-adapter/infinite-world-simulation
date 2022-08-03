@@ -17,5 +17,11 @@ namespace Population.Business
 		{
 			resource.SaveAsync(JsonSerializer.Serialize(supply)).Wait();
 		}
+
+		public void Feed(IEnumerable<FoodSupply> supplies)
+		{
+			foreach(var supply in supplies)
+				Feed(supply);
+		}
 	}
 }
