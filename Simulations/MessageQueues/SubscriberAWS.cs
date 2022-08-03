@@ -3,13 +3,8 @@ using MessageQueues.Messages;
 
 namespace MessageQueues
 {
-	public abstract class SubscriberAWS<TIn, TOut> : Subscriber<TIn, TOut>
-		where TIn : Message
-		where TOut : class
+	public abstract class SubscriberAWS
 	{
-		public virtual TOut? FunctionHandler(TIn message, ILambdaContext context)
-		{
-			return Handle(message);
-		}
+		public abstract AwsHandlerResponse FunctionHandler(AwsSnsMessage message, ILambdaContext context);
 	}
 }

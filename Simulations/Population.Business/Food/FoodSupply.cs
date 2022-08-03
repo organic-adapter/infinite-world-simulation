@@ -2,9 +2,10 @@
 {
 	public class FoodSupply
 	{
+		private const string DEFAULT = "Default";
 		public FoodSupply()
 		{
-			Name = string.Empty;
+			Name = DEFAULT;
 			Units = default;
 		}
 
