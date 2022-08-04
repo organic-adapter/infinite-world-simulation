@@ -30,7 +30,7 @@ namespace MessageQueues.Messages
 		public override void Handle<T1>(Stream stream, Action<T1?> action)
 			where T1 : class
 		{
-			if (Value != null)
+			if (Value == null)
 				Unpack(stream);
 
 			action(Value as T1);
@@ -39,7 +39,7 @@ namespace MessageQueues.Messages
 		public override async Task HandleAsync<T1>(Stream stream, Func<T1?, Task> action)
 					where T1 : class
 		{
-			if (Value != null)
+			if (Value == null)
 				Unpack(stream);
 
 			await action(Value as T1);
