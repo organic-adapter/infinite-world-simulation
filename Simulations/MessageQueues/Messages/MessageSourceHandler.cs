@@ -15,6 +15,9 @@ namespace MessageQueues.Messages
 		public abstract void Handle<T>(Stream stream, Action<T?> action)
 			where T : class;
 
+		public abstract Task HandleAsync<T>(Stream stream, Func<T?, Task> action)
+			where T : class;
+
 		public abstract bool IsCompatible(Stream stream);
 	}
 
@@ -23,6 +26,24 @@ namespace MessageQueues.Messages
 	{
 		public override Type MessageType => typeof(T);
 		public T? Value { get; set; }
+
+		public override void Handle<T1>(Stream stream, Action<T1?> action)
+			where T1 : class
+		{
+			if (Value != null)
+				Unpack(stream);
+
+			action(Value as T1);
+		}
+
+		public override async Task HandleAsync<T1>(Stream stream, Func<T1?, Task> action)
+					where T1 : class
+		{
+			if (Value != null)
+				Unpack(stream);
+
+			await action(Value as T1);
+		}
 
 		protected virtual UnpackResult Unpack(Stream stream)
 		{

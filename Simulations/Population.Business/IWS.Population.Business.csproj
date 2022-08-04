@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Food.POC.Resource\Food.POC.Resource.csproj" />
+    <ProjectReference Include="..\Population.Access\IWS.Population.Access.csproj" />
   </ItemGroup>
 
 </Project>

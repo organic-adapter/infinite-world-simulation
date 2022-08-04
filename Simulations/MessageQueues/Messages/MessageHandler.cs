@@ -16,6 +16,13 @@
 			handler.Handle(stream, action);
 		}
 
+		public async Task HandleAsync<T>(Stream stream, Func<T?, Task> action)
+			where T : class
+		{
+			var handler = FirstCompatibleHandler(stream);
+			await handler.HandleAsync(stream, action);
+		}
+
 		private MessageSourceHandler FirstCompatibleHandler(Stream stream)
 		{
 			foreach (var handler in messageSourceHandlers)

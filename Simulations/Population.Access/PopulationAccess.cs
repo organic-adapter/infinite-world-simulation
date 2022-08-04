@@ -1,4 +1,4 @@
-﻿using Population.Access.Models;
+﻿using IWS.Population.Access.Models;
 
 namespace IWS.Population.Access
 {

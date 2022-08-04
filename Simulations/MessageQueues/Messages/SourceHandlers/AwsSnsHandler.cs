@@ -2,15 +2,6 @@
 {
 	public class AwsSnsHandler : MessageSourceHandler<AwsSnsMessage>
 	{
-		public override void Handle<T>(Stream stream, Action<T?> action)
-			where T : class
-		{
-			if (Value != null)
-				Unpack(stream);
-
-			action(Value as T);
-		}
-
 		public override bool IsCompatible(Stream stream)
 		{
 			var unpackedResult = Unpack(stream);
@@ -32,5 +23,6 @@
 				&& !string.IsNullOrEmpty(record.Sns.Signature)
 				&& !string.IsNullOrEmpty(record.Sns.SignatureVersion);
 		}
+
 	}
 }

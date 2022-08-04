@@ -1,4 +1,5 @@
 ﻿using Food.POC.Resource;
+using IWS.Contracts.Population;
 using Population.Business.Food;
 using System.Text.Json;
 
@@ -22,6 +23,11 @@ namespace IWS.Population.Business
 		{
 			foreach (var supply in supplies)
 				Feed(supply);
+		}
+
+		public Task SaveAsync(PopulationTick populationTick)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

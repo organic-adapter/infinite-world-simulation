@@ -1,6 +1,6 @@
 ﻿using IWS.Common.Access.Aws.S3;
+using IWS.Population.Access.Models;
 using Microsoft.Extensions.Options;
-using Population.Access.Models;
 
 namespace IWS.Population.Access
 {
@@ -11,7 +11,7 @@ namespace IWS.Population.Access
 		public AwsS3PopulationAccess
 				(
 					IOptionsMonitor<AccessConfiguration<AwsS3PopulationAccess>> options
-					, FilePathBuilder filePathBuilder
+					, DefaultFilePathBuilder filePathBuilder
 				)
 				: base(options.CurrentValue.BucketName, filePathBuilder)
 		{
