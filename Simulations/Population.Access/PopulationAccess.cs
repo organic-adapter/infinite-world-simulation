@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Population.Access.Models;
 
-namespace Population.Access
+namespace IWS.Population.Access
 {
 	public interface PopulationAccess
 	{
-		
+		public Task SaveAsync(PopulationTick populationTick);
 	}
 }

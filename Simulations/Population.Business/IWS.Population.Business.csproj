@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Food.POC.Resource\Food.POC.Resource.csproj" />
-    <ProjectReference Include="..\FoodSupply.POC.Contracts\Food.Supply.POC.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

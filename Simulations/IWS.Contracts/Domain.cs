@@ -2,17 +2,12 @@
 {
 	public abstract class Domain
 	{
-		public Demand[] Demands { get; set; }
-		public Domain[] Subdomains { get; set; }
-
-		public SupplySource[] SupplySources { get; set; }
-
-		public Supply[] TotalSupply { get; set; }
-
-		public abstract Supply DispatchSupply(Demand demand);
-
-		public abstract Supply GenerateSupply();
-
-		public abstract void Tick();
+		public Domain(string domainName)
+		{
+			DomainName = domainName;
+		}
+		public string DomainName { get; set; } = string.Empty;
+		public DomainOutput Output { get; set; } = new();
+		public DomainRequirements Requirements { get; set; } = new();
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Population.Business.Food;
 
-namespace Population.Business
+namespace IWS.Population.Business
 {
 	public interface PopulationManager
 	{

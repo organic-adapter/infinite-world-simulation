@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IWS.Events\IWS.Events.csproj" />
+    <ProjectReference Include="..\IWS.Food.Contracts\IWS.Food.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

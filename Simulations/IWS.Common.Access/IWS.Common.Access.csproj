@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.9.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IWS.Common\IWS.Common.csproj" />
     <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
   </ItemGroup>
 

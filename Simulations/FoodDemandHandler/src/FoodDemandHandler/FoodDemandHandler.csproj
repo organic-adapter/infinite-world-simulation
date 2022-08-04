@@ -17,8 +17,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\FoodSupply.POC.Contracts\Food.Supply.POC.Contracts.csproj" />
     <ProjectReference Include="..\..\..\MessageQueues\MessageQueues.csproj" />
-    <ProjectReference Include="..\..\..\Population.Business\Population.Business.csproj" />
+    <ProjectReference Include="..\..\..\Population.Business\IWS.Population.Business.csproj" />
   </ItemGroup>
 </Project>

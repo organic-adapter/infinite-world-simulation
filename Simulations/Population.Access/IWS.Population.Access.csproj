@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IWS.Common.Access\IWS.Common.Access.csproj" />
     <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
+    <ProjectReference Include="..\IWS.Population.Contracts\IWS.Contracts.Population.csproj" />
   </ItemGroup>
 
 </Project>
