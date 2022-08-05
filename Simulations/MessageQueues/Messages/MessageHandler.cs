@@ -23,6 +23,22 @@
 			await handler.HandleAsync(stream, action);
 		}
 
+		public async Task<T> HandleAsync<T>(Stream stream, Func<T?, Task<T>> action)
+			where T : class
+		{
+			var handler = FirstCompatibleHandler(stream);
+			var response = await handler.HandleAsync(stream, action);
+			return response;
+		}
+
+		public async Task<T> HandleAsync<T>(Stream stream, Func<string?, Task<T>> action)
+			where T : class
+		{
+			var handler = FirstCompatibleHandler(stream);
+			var response = await handler.HandleAsync(stream, action);
+			return response;
+		}
+
 		private MessageSourceHandler FirstCompatibleHandler(Stream stream)
 		{
 			foreach (var handler in messageSourceHandlers)

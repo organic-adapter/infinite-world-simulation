@@ -25,7 +25,12 @@ namespace IWS.Common.Startups
 			services.AddSingleton<MessageHandler>();
 			return services;
 		}
-
+		public static IServiceCollection AddApiMessageSourceHandlerForString(this IServiceCollection services)
+		{
+			services.AddSingleton<MessageSourceHandler, MessageQueues.Messages.SourceHandlers.StringHandler<string>>();
+			
+			return services;
+		}
 		public static IServiceCollection AddApiMessageSourceHandlerForType<T>(this IServiceCollection services)
 			where T : class
 		{

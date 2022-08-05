@@ -16,44 +16,90 @@ namespace IWS.Common.Access.Aws.S3
 			this.bucketName = bucketName;
 			this.filePathBuilder = filePathBuilder;
 		}
-		protected PutObjectRequest GenerateBaseRequest<T>(T putMe)
-			where T : DefinedByName
+
+		protected GetObjectRequest GenerateBaseGetRequest(string id)
 		{
-			var body = JsonSerializer.Serialize(putMe);
+			var getRequest = new GetObjectRequest()
+			{
+				BucketName = bucketName,
+				Key = id,
+			};
+			return getRequest;
+		}
+
+		protected PutObjectRequest GenerateBasePutRequest<T>(T putMe, string filePath)
+			where T : DefinedByName, Unique
+		{
+			var obj = putMe;
+			obj = SetIdIfMissing(obj, filePath);
+			var body = JsonSerializer.Serialize(obj);
 			var putRequest = new PutObjectRequest()
 			{
 				BucketName = bucketName,
 				ContentBody = body,
 				ContentType = "application/json",
+				Key = filePath,
 			};
 
 			return putRequest;
 		}
+
 		protected PutObjectRequest GeneratePutRequest<T>(T putMe)
-			where T : DefinedByName
+			where T : DefinedByName, Unique
 		{
-			var putRequest = GenerateBaseRequest<T>(putMe);
-			putRequest.Key = filePathBuilder.GetFilePath(putMe);
-			
-			return putRequest;
-		}
-		protected PutObjectRequest GeneratePutRequest<T>(T putMe, Tick tick)
-			where T : DefinedByName
-		{
-			var putRequest = GenerateBaseRequest<T>(putMe);
-			putRequest.Key = filePathBuilder.GetFilePath(putMe, tick);
+			var filePath = filePathBuilder.GetFilePath(putMe);
+			var putRequest = GenerateBasePutRequest(putMe, filePath);
 
 			return putRequest;
 		}
-		protected async Task PutAsync<T>(T putMe, Tick tick)
-			where T : DefinedByName
+
+		protected PutObjectRequest GeneratePutRequest<T>(T putMe, Tick tick)
+			where T : DefinedByName, Unique
 		{
-			var putRequest = GeneratePutRequest<T>(putMe, tick);
+			var filePath = filePathBuilder.GetFilePath(putMe, tick);
+			var putRequest = GenerateBasePutRequest(putMe, filePath);
+
+			return putRequest;
+		}
+
+		protected async Task<T> GetAsync<T>(string id)
+				where T : DefinedByName, Unique
+		{
+			var getRequest = GenerateBaseGetRequest(id);
+
+			try
+			{
+				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+				using (GetObjectResponse response = await client.GetObjectAsync(getRequest))
+					return JsonSerializer.Deserialize<T>(response.ResponseStream)
+						?? throw new FileNotFoundException();
+			}
+			catch (AmazonS3Exception amazonS3Exception)
+			{
+				if (amazonS3Exception.ErrorCode != null &&
+					(amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
+					||
+					amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
+				{
+					throw new Exception("Check the provided AWS Credentials.");
+				}
+				else
+				{
+					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{getRequest.BucketName}=>{getRequest.Key}");
+				}
+			}
+		}
+
+		protected async Task<T> PutAsync<T>(T putMe, Tick tick)
+			where T : DefinedByName, Unique
+		{
+			var putRequest = GeneratePutRequest(putMe, tick);
 
 			try
 			{
 				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
 				PutObjectResponse response = await client.PutObjectAsync(putRequest);
+				return putMe;
 			}
 			catch (AmazonS3Exception amazonS3Exception)
 			{
@@ -69,6 +115,13 @@ namespace IWS.Common.Access.Aws.S3
 					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{putRequest.BucketName}=>{putRequest.Key}");
 				}
 			}
+		}
+
+		private T SetIdIfMissing<T>(T obj, string id)
+			where T : DefinedByName, Unique
+		{
+			obj.Id = string.IsNullOrEmpty(obj.Id) ? id : obj.Id;
+			return obj;
 		}
 	}
 }

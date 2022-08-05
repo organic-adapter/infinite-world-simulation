@@ -11,5 +11,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 128,
   "function-timeout": 30,
-  "function-handler": "IWS.Population.Save.Api::IWS.Population.Save.Api.Function::FunctionHandler"
+  "function-handler": "IWS.Water.Save.Api::IWS.Water.Save.Api.Function::FunctionHandler"
 }
