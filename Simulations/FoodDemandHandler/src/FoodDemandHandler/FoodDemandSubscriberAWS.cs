@@ -1,7 +1,7 @@
 using Amazon.Lambda.Core;
 using AutoMapper;
-using Food.POC.Resource;
 using FoodDemandHandler.Maps;
+using IWS.Population.Business;
 using MessageQueues;
 using MessageQueues.Messages;
 using Population.Business;
@@ -26,6 +26,7 @@ public class FoodDemandSubscriberAWS : SubscriberAWS
 		mapper = mapperConfig.CreateMapper();
 		populationManager = new SimplePopulationManager();
 	}
+
 	//public Stream FunctionHandler(Stream stream, ILambdaContext context)
 	//{
 	//	var resource = new FoodS3Resource();
@@ -44,12 +45,12 @@ public class FoodDemandSubscriberAWS : SubscriberAWS
 	{
 		var jsonSerializerOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
 		var records = message.Records;
-		IEnumerable<FoodSupply> supplies = 
+		IEnumerable<FoodSupply> supplies =
 				records
 					.Select(record =>
 							{
 								var obj = JsonSerializer.Deserialize<MessageBody<FoodSupply>>(record.Sns.Message, jsonSerializerOptions);
-								if(obj == null || obj.Payload == null)
+								if (obj == null || obj.Payload == null)
 									return new FoodSupply();
 								return obj.Payload;
 							}

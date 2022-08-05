@@ -1,8 +1,9 @@
 ﻿using Food.POC.Resource;
+using IWS.Contracts.Population;
 using Population.Business.Food;
 using System.Text.Json;
 
-namespace Population.Business
+namespace IWS.Population.Business
 {
 	public class SimplePopulationManager : PopulationManager
 	{
@@ -20,8 +21,13 @@ namespace Population.Business
 
 		public void Feed(IEnumerable<FoodSupply> supplies)
 		{
-			foreach(var supply in supplies)
+			foreach (var supply in supplies)
 				Feed(supply);
+		}
+
+		public Task SaveAsync(PopulationTick populationTick)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

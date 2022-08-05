@@ -49,6 +49,8 @@
 		public string TopicArn { get; set; }
 		public string Type { get; set; }
 		public string UnsubscribeUrl { get; set; }
+
+		public static readonly AwsSns Empty = new AwsSns();
 	}
 
 	[Serializable]
@@ -65,6 +67,13 @@
 	[Serializable]
 	public class AwsSnsRecord
 	{
+		public AwsSnsRecord()
+		{
+			EventSource = string.Empty;
+			EventSubscriptionArn = string.Empty;
+			EventVersion = string.Empty;
+			Sns = AwsSns.Empty;
+		}
 		public string EventSource { get; set; }
 		public string EventSubscriptionArn { get; set; }
 		public string EventVersion { get; set; }
