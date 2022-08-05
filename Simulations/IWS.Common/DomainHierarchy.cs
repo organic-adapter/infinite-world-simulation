@@ -47,13 +47,13 @@
 			public readonly string DomainName;
 			public readonly HierarchyTree? Parent;
 			private readonly IEnumerable<HierarchyTree> children;
-			private readonly Dictionary<string, HierarchyTree> dictionary;
+			private readonly Dictionary<string, HierarchyTree> catalog;
 
 			public HierarchyTree(string domainName)
 			{
 				this.DomainName = domainName;
 				children = new List<HierarchyTree>();
-				dictionary = new Dictionary<string, HierarchyTree>();
+				catalog = new Dictionary<string, HierarchyTree>();
 			}
 
 			public HierarchyTree
@@ -67,12 +67,12 @@
 				this.DomainName = domainName;
 				this.Parent = parent;
 				this.children = children;
-				this.dictionary = dictionary;
+				this.catalog = dictionary;
 			}
 
 			public HierarchyTree FindNode(string searchForDomainName)
 			{
-				return dictionary[searchForDomainName];
+				return catalog[searchForDomainName];
 			}
 		}
 	}

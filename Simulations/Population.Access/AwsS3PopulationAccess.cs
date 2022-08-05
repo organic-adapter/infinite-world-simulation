@@ -11,7 +11,7 @@ namespace IWS.Population.Access
 		public AwsS3PopulationAccess
 				(
 					IOptionsMonitor<AccessConfiguration<AwsS3PopulationAccess>> options
-					, DefaultFilePathBuilder filePathBuilder
+					, FilePathBuilder filePathBuilder
 				)
 				: base(options.CurrentValue.BucketName, filePathBuilder)
 		{

@@ -43,6 +43,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Save.Api", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Common.Startups", "IWS.Common.Startups\IWS.Common.Startups.csproj", "{21382227-267F-40FB-A4E3-4248DE9B1C0E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F106DAB3-2B94-4AC1-AB1B-39D3A747A654}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Save.Api.Tests", "IWS.Population.Save.Api\test\IWS.Population.Save.Api.Tests\IWS.Population.Save.Api.Tests.csproj", "{1074CFCB-3A7C-4D27-8413-42CABEEA8863}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +121,10 @@ Global
 		{21382227-267F-40FB-A4E3-4248DE9B1C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21382227-267F-40FB-A4E3-4248DE9B1C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21382227-267F-40FB-A4E3-4248DE9B1C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1074CFCB-3A7C-4D27-8413-42CABEEA8863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1074CFCB-3A7C-4D27-8413-42CABEEA8863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1074CFCB-3A7C-4D27-8413-42CABEEA8863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1074CFCB-3A7C-4D27-8413-42CABEEA8863}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +138,8 @@ Global
 		{37789010-9750-45CA-9EA8-3B21FA8113D0} = {4C746A67-599E-4EAF-BEC6-DA2C54D2918D}
 		{5C2BB4C7-3D80-4ECE-91B1-CF7A499E4AC7} = {4C746A67-599E-4EAF-BEC6-DA2C54D2918D}
 		{AE7182DC-6512-4956-81BD-130A38FD1F8E} = {4C746A67-599E-4EAF-BEC6-DA2C54D2918D}
+		{F106DAB3-2B94-4AC1-AB1B-39D3A747A654} = {4C746A67-599E-4EAF-BEC6-DA2C54D2918D}
+		{1074CFCB-3A7C-4D27-8413-42CABEEA8863} = {F106DAB3-2B94-4AC1-AB1B-39D3A747A654}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}

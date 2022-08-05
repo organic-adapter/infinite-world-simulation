@@ -21,7 +21,7 @@ namespace IWS.Common.Access.Aws.S3
 			var lineage = domainHierarchy.GetLineage(obj.DomainName);
 			var rootPath = string.Join("/", lineage);
 			var fileTypeFolder = GetFileTypeFolder(obj);
-			var filePath = $"{rootPath}/${fileTypeFolder}/{obj.Name}.json";
+			var filePath = $"{rootPath}/{fileTypeFolder}/{obj.Name}.json";
 
 			return filePath;
 		}
@@ -31,7 +31,7 @@ namespace IWS.Common.Access.Aws.S3
 			var lineage = domainHierarchy.GetLineage(obj.DomainName);
 			var rootPath = string.Join("/", lineage);
 			var fileTypeFolder = GetFileTypeFolder(obj);
-			var filePath = $"{rootPath}/${fileTypeFolder}/{obj.Name}-{tick.Id}.json";
+			var filePath = $"{rootPath}/{fileTypeFolder}/{obj.Name}-{tick.Id}.json";
 
 			return filePath;
 		}

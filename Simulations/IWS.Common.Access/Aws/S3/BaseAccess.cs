@@ -33,7 +33,7 @@ namespace IWS.Common.Access.Aws.S3
 			where T : DefinedByName
 		{
 			var putRequest = GenerateBaseRequest<T>(putMe);
-			putRequest.FilePath = filePathBuilder.GetFilePath(putMe);
+			putRequest.Key = filePathBuilder.GetFilePath(putMe);
 			
 			return putRequest;
 		}
@@ -41,7 +41,7 @@ namespace IWS.Common.Access.Aws.S3
 			where T : DefinedByName
 		{
 			var putRequest = GenerateBaseRequest<T>(putMe);
-			putRequest.FilePath = filePathBuilder.GetFilePath(putMe, tick);
+			putRequest.Key = filePathBuilder.GetFilePath(putMe, tick);
 
 			return putRequest;
 		}
@@ -66,7 +66,7 @@ namespace IWS.Common.Access.Aws.S3
 				}
 				else
 				{
-					throw new Exception("Error occurred: " + amazonS3Exception.Message);
+					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{putRequest.BucketName}=>{putRequest.Key}");
 				}
 			}
 		}

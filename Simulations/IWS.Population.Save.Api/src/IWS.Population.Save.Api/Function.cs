@@ -23,4 +23,9 @@ public class Function
 
 		return stream;
 	}
+
+	public async Task Noop(PopulationTick? meh)
+	{
+		await Task.Run(()=> meh);
+	}
 }
