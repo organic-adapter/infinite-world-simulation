@@ -55,17 +55,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Get.Api", "IWS.Wa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Save.Api", "IWS.Water.Save.Api\src\IWS.Water.Save.Api\IWS.Water.Save.Api.csproj", "{9B48486A-2AF5-4BA4-80F3-C9C0B3F3915A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Water.Business", "IWS.Water.Business\IWS.Water.Business.csproj", "{CCF2EDA1-FBDB-4073-B8DD-30B4B61891B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Business", "IWS.Water.Business\IWS.Water.Business.csproj", "{CCF2EDA1-FBDB-4073-B8DD-30B4B61891B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Water.Access", "IWS.Water.Access\IWS.Water.Access.csproj", "{A5CE067E-D4AA-41A4-BB82-6843F98530E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Access", "IWS.Water.Access\IWS.Water.Access.csproj", "{A5CE067E-D4AA-41A4-BB82-6843F98530E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Contracts.Water", "IWS.Contracts.Water\IWS.Contracts.Water.csproj", "{1435B8E4-3AAF-4711-A152-82079B0E40F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Contracts.Water", "IWS.Contracts.Water\IWS.Contracts.Water.csproj", "{1435B8E4-3AAF-4711-A152-82079B0E40F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2717096E-0EFA-421B-91D5-3A987D7890F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Save.Api.Tests", "IWS.Water.Save.Api\test\IWS.Water.Save.Api.Tests\IWS.Water.Save.Api.Tests.csproj", "{703C9902-17FF-4171-A4C6-0CD76FDCEEEB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Get.Api.Tests", "IWS.Water.Get.Api\test\IWS.Water.Get.Api.Tests\IWS.Water.Get.Api.Tests.csproj", "{EB252140-1F5D-4D98-8CC1-6AF06D9AF499}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shelter", "Shelter", "{B16D0962-1FC0-45AD-8CFD-7F93BE2A216A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Shelter.Api", "IWS.Shelter.Api\src\IWS.Shelter.Api\IWS.Shelter.Api.csproj", "{7AD8A457-2E64-4637-8B7C-E3115383AA6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +181,10 @@ Global
 		{EB252140-1F5D-4D98-8CC1-6AF06D9AF499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB252140-1F5D-4D98-8CC1-6AF06D9AF499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB252140-1F5D-4D98-8CC1-6AF06D9AF499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,6 +212,7 @@ Global
 		{2717096E-0EFA-421B-91D5-3A987D7890F4} = {8662849F-973F-4489-A990-51B3B7015EDB}
 		{703C9902-17FF-4171-A4C6-0CD76FDCEEEB} = {2717096E-0EFA-421B-91D5-3A987D7890F4}
 		{EB252140-1F5D-4D98-8CC1-6AF06D9AF499} = {2717096E-0EFA-421B-91D5-3A987D7890F4}
+		{7AD8A457-2E64-4637-8B7C-E3115383AA6A} = {B16D0962-1FC0-45AD-8CFD-7F93BE2A216A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}
