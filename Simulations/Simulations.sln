@@ -71,6 +71,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shelter", "Shelter", "{B16D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Shelter.Api", "IWS.Shelter.Api\src\IWS.Shelter.Api\IWS.Shelter.Api.csproj", "{7AD8A457-2E64-4637-8B7C-E3115383AA6A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Api", "IWS.Water.Api\src\IWS.Water.Api\IWS.Water.Api.csproj", "{47C71537-560E-4D50-9510-F1A96A5BA2BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +187,10 @@ Global
 		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AD8A457-2E64-4637-8B7C-E3115383AA6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C71537-560E-4D50-9510-F1A96A5BA2BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C71537-560E-4D50-9510-F1A96A5BA2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C71537-560E-4D50-9510-F1A96A5BA2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C71537-560E-4D50-9510-F1A96A5BA2BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,6 +219,7 @@ Global
 		{703C9902-17FF-4171-A4C6-0CD76FDCEEEB} = {2717096E-0EFA-421B-91D5-3A987D7890F4}
 		{EB252140-1F5D-4D98-8CC1-6AF06D9AF499} = {2717096E-0EFA-421B-91D5-3A987D7890F4}
 		{7AD8A457-2E64-4637-8B7C-E3115383AA6A} = {B16D0962-1FC0-45AD-8CFD-7F93BE2A216A}
+		{47C71537-560E-4D50-9510-F1A96A5BA2BF} = {8662849F-973F-4489-A990-51B3B7015EDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}
