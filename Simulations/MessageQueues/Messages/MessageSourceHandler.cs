@@ -18,6 +18,12 @@ namespace MessageQueues.Messages
 		public abstract Task HandleAsync<T>(Stream stream, Func<T?, Task> action)
 			where T : class;
 
+		public abstract Task<T> HandleAsync<T>(Stream stream, Func<T?, Task<T>> action)
+			where T : class;
+
+		public abstract Task<T> HandleAsync<T>(Stream stream, Func<string?, Task<T>> action)
+			where T : class;
+
 		public abstract bool IsCompatible(Stream stream);
 	}
 
@@ -37,12 +43,28 @@ namespace MessageQueues.Messages
 		}
 
 		public override async Task HandleAsync<T1>(Stream stream, Func<T1?, Task> action)
-					where T1 : class
+			where T1 : class
 		{
 			if (Value == null)
 				Unpack(stream);
 
 			await action(Value as T1);
+		}
+
+		public override async Task<T1> HandleAsync<T1>(Stream stream, Func<T1?, Task<T1>> action)
+			where T1 : class
+		{
+			if (Value == null)
+				Unpack(stream);
+
+			return await action(Value as T1);
+		}
+
+		public override async Task<T1> HandleAsync<T1>(Stream stream, Func<string?, Task<T1>> action)
+		{
+			var id = GetId(stream);
+
+			return await action(id);
 		}
 
 		protected virtual UnpackResult Unpack(Stream stream)
@@ -62,6 +84,12 @@ namespace MessageQueues.Messages
 					return UnpackResult.Error();
 				}
 			}
+		}
+
+		private string GetId(Stream stream)
+		{
+			using (var reader = new StreamReader(stream))
+				return reader.ReadToEnd().Replace("\"", ""); //HACK. The Lambda Invoke is wrapping the parameter in double quotes.
 		}
 
 		public class UnpackResult

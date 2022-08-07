@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IWS.Common.Access\IWS.Common.Access.csproj" />
+    <ProjectReference Include="..\IWS.Contracts.Water\IWS.Contracts.Water.csproj" />
+    <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
+    <ProjectReference Include="..\IWS.Water.Access\IWS.Water.Access.csproj" />
+  </ItemGroup>
+
+</Project>
