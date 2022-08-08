@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IWS.Contracts.Food\IWS.Contracts.Food.csproj" />
+    <ProjectReference Include="..\IWS.Food.Access\IWS.Food.Access.csproj" />
+  </ItemGroup>
+
 </Project>
