@@ -18,9 +18,14 @@ namespace IWS.Population.Access
 			this.options = options;
 		}
 
-		public async Task SaveAsync(PopulationTick populationTick)
+		public async Task<PopulationTick> RetrieveAsync(string id)
 		{
-			await PutAsync(populationTick, populationTick.Tick);
+			return await GetAsync<PopulationTick>(id);
+		}
+
+		public async Task<PopulationTick> SaveAsync(PopulationTick populationTick)
+		{
+			return await PutAsync(populationTick, populationTick.Tick);
 		}
 	}
 }

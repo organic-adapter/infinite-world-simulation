@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IWS.Population.Access\IWS.Population.Access.csproj" />
-    <ProjectReference Include="..\Population.Access\IWS.Population.Access.csproj" />
   </ItemGroup>
 
 </Project>
