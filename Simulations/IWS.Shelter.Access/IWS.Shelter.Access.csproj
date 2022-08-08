@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IWS.Common.Access\IWS.Common.Access.csproj" />
+    <ProjectReference Include="..\IWS.Contracts.Shelter\IWS.Contracts.Shelter.csproj" />
+    <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

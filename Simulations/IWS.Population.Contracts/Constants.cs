@@ -2,6 +2,6 @@
 {
 	public static class Constants
 	{
-		public const string DomainName = "Population";
+		public const string DomainName = "population";
 	}
 }

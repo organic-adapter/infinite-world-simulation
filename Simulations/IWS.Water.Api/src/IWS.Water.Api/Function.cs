@@ -24,15 +24,25 @@ public class Function
 	private readonly Dictionary<HttpMethod, Func<APIGatewayProxyRequest, Task<APIGatewayProxyResponse>>> methodMap;
 	private readonly WaterManager waterManager;
 
-	public Function()
+	public Function() : this(Startup.SetUp())
 	{
-		methodMap = new();
-		methodMap.Add(HttpMethod.Get, HandleGet);
-		methodMap.Add(HttpMethod.Post, HandleSave);
-		methodMap.Add(HttpMethod.Put, HandleSave);
+	}
 
-		var provider = Startup.SetUp();
-		waterManager = provider.GetService<WaterManager>();
+	/// <summary>
+	/// We need a Unit Testable version of this. We will inject the dependencies using this constructor instead.
+	/// </summary>
+	/// <param name="provider"></param>
+	public Function(IServiceProvider provider)
+	{
+		methodMap = new()
+		{
+			{ HttpMethod.Get, HandleGet },
+			{ HttpMethod.Post, HandleSave },
+			{ HttpMethod.Put, HandleSave }
+		};
+
+		waterManager = provider.GetService<WaterManager>()
+						?? throw new Exception("Service not found");
 	}
 
 	public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest input, ILambdaContext context)

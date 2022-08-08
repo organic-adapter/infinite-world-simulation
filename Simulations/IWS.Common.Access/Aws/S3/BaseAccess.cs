@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace IWS.Common.Access.Aws.S3
 {
-	public abstract class BaseAccess : Access
+	public abstract class BaseAccess : ResourceAccess
 	{
 		protected readonly string bucketName;
 		protected readonly FilePathBuilder filePathBuilder;
