@@ -1,9 +1,13 @@
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
+using IWS.Contracts.Shelter;
+using IWS.Shelter.Business;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Web;
 
 [assembly: LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<IWS.Shelter.Api.HttpApiJsonSerializerContext>))]
 
@@ -17,54 +21,60 @@ public partial class HttpApiJsonSerializerContext : JsonSerializerContext
 
 public class Function
 {
-	private readonly Dictionary<HttpMethod, Func<APIGatewayProxyRequest, APIGatewayProxyResponse>> methodMap = new Dictionary<HttpMethod, Func<APIGatewayProxyRequest, APIGatewayProxyResponse>>();
+	private readonly Dictionary<HttpMethod, Func<APIGatewayProxyRequest, Task<APIGatewayProxyResponse>>> methodMap;
+	private readonly ShelterManager shelterManager;
 
-	public Function()
+	public Function() : this(Startup.SetUp())
 	{
-		methodMap.Add(HttpMethod.Get, HandleGet);
-		methodMap.Add(HttpMethod.Post, HandleSave);
-		methodMap.Add(HttpMethod.Put, HandleSave);
-		methodMap.Add(HttpMethod.Delete, HandleDelete);
 	}
 
-	public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest input, ILambdaContext context)
+	/// <summary>
+	/// We need a Unit Testable version of this. We will inject the dependencies using this constructor instead.
+	/// </summary>
+	/// <param name="provider"></param>
+	public Function(IServiceProvider provider)
+	{
+		methodMap = new()
+		{
+			{ HttpMethod.Get, HandleGet },
+			{ HttpMethod.Post, HandleSave },
+			{ HttpMethod.Put, HandleSave }
+		};
+
+		shelterManager = provider.GetService<ShelterManager>()
+						?? throw new Exception("Service not found");
+	}
+
+	public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest input, ILambdaContext context)
 	{
 		var method = new HttpMethod(input.HttpMethod) ?? HttpMethod.Head;
-		return methodMap[method](input);
+		return await methodMap[method](input);
 	}
 
-	public APIGatewayProxyResponse HandleDelete(APIGatewayProxyRequest input)
+	public async Task<APIGatewayProxyResponse> HandleGet(APIGatewayProxyRequest input)
 	{
-		var json = JsonSerializer.Serialize(new { Message = "This was a DELETE" });
+		var id = HttpUtility.UrlDecode(input.PathParameters["id"]);
+		var shelterTick = await shelterManager.GetAsync(id);
+		var body = JsonSerializer.Serialize(shelterTick);
 
 		return new APIGatewayProxyResponse()
 		{
 			StatusCode = (int)HttpStatusCode.OK,
-			Body = json,
+			Body = body,
 			Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
 		};
 	}
 
-	public APIGatewayProxyResponse HandleGet(APIGatewayProxyRequest input)
+	public async Task<APIGatewayProxyResponse> HandleSave(APIGatewayProxyRequest input)
 	{
-		var json = JsonSerializer.Serialize(new { Message = "This was a GET" });
+		var saveMe = JsonSerializer.Deserialize<ShelterTick>(input.Body);
+		var saved = await shelterManager.SaveAsync(saveMe);
+		var body = JsonSerializer.Serialize(saved);
 
 		return new APIGatewayProxyResponse()
 		{
 			StatusCode = (int)HttpStatusCode.OK,
-			Body = json,
-			Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-		};
-	}
-
-	public APIGatewayProxyResponse HandleSave(APIGatewayProxyRequest input)
-	{
-		var json = JsonSerializer.Serialize(new { Message = $"This was a {input.HttpMethod}" });
-
-		return new APIGatewayProxyResponse()
-		{
-			StatusCode = (int)HttpStatusCode.OK,
-			Body = json,
+			Body = body,
 			Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
 		};
 	}
