@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.7.12.17" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.9.35" />
-    <PackageReference Include="AWSSDK.Transfer" Version="3.7.13.4" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Population.Access\IWS.Population.Access.csproj" />
   </ItemGroup>
 
 </Project>
