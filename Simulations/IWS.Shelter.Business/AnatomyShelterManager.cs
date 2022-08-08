@@ -7,7 +7,7 @@ namespace IWS.Shelter.Business
 	public class AnatomyShelterManager : ShelterManager
 	{
 		private readonly IMapper mapper;
-		private readonly ShelterAccess ShelterAccess;
+		private readonly ShelterAccess shelterAccess;
 
 		public AnatomyShelterManager
 				(
@@ -16,19 +16,19 @@ namespace IWS.Shelter.Business
 				)
 		{
 			this.mapper = mapper;
-			this.ShelterAccess = ShelterAccess;
+			this.shelterAccess = ShelterAccess;
 		}
 
 		public async Task<ShelterTick> GetAsync(string id)
 		{
-			return await ShelterAccess.RetrieveAsync(id);
+			return await shelterAccess.RetrieveAsync(id);
 		}
 
 		public async Task<ShelterTick> SaveAsync(ShelterTick? ShelterTick)
 		{
 			var saveMe = mapper.Map<Access.Models.ShelterTick>(ShelterTick);
 			//TODO: tick-history needs to be saved here as well.
-			return await ShelterAccess.SaveAsync(saveMe);
+			return await shelterAccess.SaveAsync(saveMe);
 		}
 	}
 }

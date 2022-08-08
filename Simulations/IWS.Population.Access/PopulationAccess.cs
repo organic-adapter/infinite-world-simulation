@@ -4,6 +4,8 @@ namespace IWS.Population.Access
 {
 	public interface PopulationAccess
 	{
-		public Task SaveAsync(PopulationTick populationTick);
+		public Task<PopulationTick> RetrieveAsync(string id);
+
+		public Task<PopulationTick> SaveAsync(PopulationTick populationTick);
 	}
 }

@@ -7,7 +7,7 @@ namespace IWS.Water.Business
 	public class AnatomyWaterManager : WaterManager
 	{
 		private readonly IMapper mapper;
-		private readonly WaterAccess WaterAccess;
+		private readonly WaterAccess waterAccess;
 
 		public AnatomyWaterManager
 				(
@@ -16,19 +16,19 @@ namespace IWS.Water.Business
 				)
 		{
 			this.mapper = mapper;
-			this.WaterAccess = WaterAccess;
+			this.waterAccess = WaterAccess;
 		}
 
 		public async Task<WaterTick> GetAsync(string id)
 		{
-			return await WaterAccess.RetrieveAsync(id);
+			return await waterAccess.RetrieveAsync(id);
 		}
 
 		public async Task<WaterTick> SaveAsync(WaterTick? WaterTick)
 		{
 			var saveMe = mapper.Map<Access.Models.WaterTick>(WaterTick);
 			//TODO: tick-history needs to be saved here as well.
-			return await WaterAccess.SaveAsync(saveMe);
+			return await waterAccess.SaveAsync(saveMe);
 		}
 	}
 }
