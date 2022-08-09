@@ -29,7 +29,7 @@ namespace IWS.Water.Subscriber
 					.AddAutoMapperWith(typeof(WaterMappingProfiles))
 					.AddAccessDefaults()
 					.AddApiMessageHandler()
-					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.AwsSnsHandler>()
+					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SNSEventHandler>()
 					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.AwsSqsHandler>()
 					.AddAwsSnsCoreSupplyBus()
 					.AddSnsConfig(coreSupplyBusConfiguration)

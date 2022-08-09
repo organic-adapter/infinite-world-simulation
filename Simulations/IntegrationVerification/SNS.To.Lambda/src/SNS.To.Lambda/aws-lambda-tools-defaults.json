@@ -11,5 +11,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 128,
   "function-timeout": 30,
-  "function-handler": "IWS.Food.Api::IWS.Food.Api.Function::FunctionHandler"
+  "function-handler": "SNS.To.Lambda::SNS.To.Lambda.Function::FunctionHandler"
 }

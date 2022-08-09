@@ -1,8 +1,10 @@
+using Amazon.Lambda.SNSEvents;
 using Amazon.Lambda.TestUtilities;
 using IWS.Events.Water;
 using MessageQueues.Messages;
 using System.Text.Json;
 using Xunit;
+using static Amazon.Lambda.SNSEvents.SNSEvent;
 
 namespace IWS.Water.Subscriber.Tests;
 
@@ -14,18 +16,18 @@ public class FunctionTest
 		var function = new Function();
 		var context = new TestLambdaContext();
 		var waterDemandedJson = JsonSerializer.Serialize(new WaterDemanded() { Payload = new Contracts.Demand() { Quantity = 2.0f, SupplyType = "Water" } });
-		var request = new AwsSnsMessage()
+		var request = new SNSEvent()
 		{
-			Records = new List<AwsSnsRecord>
+			Records = new List<SNSRecord>
 			{
-				new AwsSnsRecord()
+				new SNSRecord()
 				{
 					EventSource = "Unit Test",
-					Sns = new AwsSns()
+					Sns = new SNSMessage()
 					{
 						Message = waterDemandedJson,
 						MessageId = Guid.NewGuid().ToString(),
-						Timestamp = DateTime.Now.ToString(),
+						Timestamp = DateTime.Now,
 						Signature = "Unit Test Signature",
 						SignatureVersion = "Unit Test Signature Version"
 					}
