@@ -15,6 +15,8 @@
     <ProjectReference Include="..\IWS.Common.Access\IWS.Common.Access.csproj" />
     <ProjectReference Include="..\IWS.Contracts.Water\IWS.Contracts.Water.csproj" />
     <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
+    <ProjectReference Include="..\IWS.Events.Water\IWS.Events.Water.csproj" />
+    <ProjectReference Include="..\IWS.Prototypes\IWS.Prototypes.csproj" />
     <ProjectReference Include="..\IWS.Water.Access\IWS.Water.Access.csproj" />
   </ItemGroup>
 

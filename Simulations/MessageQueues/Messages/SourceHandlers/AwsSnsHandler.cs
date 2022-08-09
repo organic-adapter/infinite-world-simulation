@@ -1,7 +1,11 @@
-﻿namespace MessageQueues.Messages.SourceHandlers
+﻿using System.Text.Json;
+
+namespace MessageQueues.Messages.SourceHandlers
 {
 	public class AwsSnsHandler : MessageSourceHandler<AwsSnsMessage>
 	{
+		
+
 		public override bool IsCompatible(Stream stream)
 		{
 			var unpackedResult = Unpack(stream);
@@ -24,5 +28,15 @@
 				&& !string.IsNullOrEmpty(record.Sns.SignatureVersion);
 		}
 
+		protected override IEnumerable<TMessage> UnpackRecords<TMessage>(AwsSnsMessage? message)
+		{
+			if (message == null)
+				throw new ArgumentNullException();
+
+			return message.Records.Select(record =>
+				JsonSerializer.Deserialize<TMessage>(record.Sns.Message)
+					?? throw new MessageContainsPoisonPillRecord(record)
+			);
+		}
 	}
 }

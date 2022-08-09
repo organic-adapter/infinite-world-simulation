@@ -1,4 +1,5 @@
-﻿using IWS.Water.Access.Models;
+﻿using IWS.Events;
+using IWS.Water.Access.Models;
 
 namespace IWS.Water.Access
 {
@@ -9,5 +10,8 @@ namespace IWS.Water.Access
 		public Task<WaterTick> RetrieveAsync(string id);
 
 		public Task<WaterTick> SaveAsync(WaterTick waterTick);
+		public Task SaveAsync(SupplyDemanded demand);
+		public Task SaveAsync(SupplyDispatched dispatch);
+
 	}
 }

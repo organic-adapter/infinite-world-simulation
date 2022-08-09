@@ -90,6 +90,36 @@ namespace IWS.Common.Access.Aws.S3
 			}
 		}
 
+		protected async Task<T> PutAsync<T>(LogItem<T> putMe)
+			where T : class
+		{
+			if (putMe.Payload == null)
+				throw new NullReferenceException();
+
+			var putRequest = GenerateLogPutRequest(putMe);
+
+			try
+			{
+				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+				PutObjectResponse response = await client.PutObjectAsync(putRequest);
+				return putMe.Payload;
+			}
+			catch (AmazonS3Exception amazonS3Exception)
+			{
+				if (amazonS3Exception.ErrorCode != null &&
+					(amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
+					||
+					amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
+				{
+					throw new Exception("Check the provided AWS Credentials.");
+				}
+				else
+				{
+					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{putRequest.BucketName}=>{putRequest.Key}");
+				}
+			}
+		}
+
 		protected async Task<T> PutAsync<T>(T putMe, Tick tick)
 			where T : DefinedByName, Unique
 		{
@@ -115,6 +145,21 @@ namespace IWS.Common.Access.Aws.S3
 					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{putRequest.BucketName}=>{putRequest.Key}");
 				}
 			}
+		}
+
+		private PutObjectRequest GenerateLogPutRequest<T>(T putMe)
+					where T : LogItem
+		{
+			var filePath = $"logs/{typeof(T).GenericTypeArguments[0].Name.ToLower()}/{putMe.Id}.json";
+			var body = JsonSerializer.Serialize(putMe);
+			var putRequest = new PutObjectRequest()
+			{
+				BucketName = bucketName,
+				ContentBody = body,
+				ContentType = "application/json",
+				Key = filePath,
+			};
+			return putRequest;
 		}
 
 		private T SetIdIfMissing<T>(T obj, string id)

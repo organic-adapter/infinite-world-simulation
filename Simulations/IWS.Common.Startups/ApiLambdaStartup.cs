@@ -23,18 +23,14 @@ namespace IWS.Common.Startups
 		public static IServiceCollection AddApiMessageHandler(this IServiceCollection services)
 		{
 			services.AddSingleton<MessageHandler>();
+
 			return services;
 		}
-		public static IServiceCollection AddApiMessageSourceHandlerForString(this IServiceCollection services)
+
+		public static IServiceCollection AddApiMessageSourceHandler<T>(this IServiceCollection services)
+			where T : MessageSourceHandler
 		{
-			services.AddSingleton<MessageSourceHandler, MessageQueues.Messages.SourceHandlers.StringHandler<string>>();
-			
-			return services;
-		}
-		public static IServiceCollection AddApiMessageSourceHandlerForType<T>(this IServiceCollection services)
-			where T : class
-		{
-			services.AddSingleton<MessageSourceHandler, MessageQueues.Messages.SourceHandlers.PocoHandler<T>>();
+			services.AddSingleton<MessageSourceHandler, T>();
 
 			return services;
 		}

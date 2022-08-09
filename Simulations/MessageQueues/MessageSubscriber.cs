@@ -2,6 +2,6 @@
 {
 	public abstract class MessageSubscriber
 	{
-		public abstract Stream Handler(Stream stream);
+		public abstract Stream FunctionHandler(Stream stream);
 	}
 }

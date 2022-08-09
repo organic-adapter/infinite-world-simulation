@@ -47,19 +47,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Business", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Access", "IWS.Population.Access\IWS.Population.Access.csproj", "{466ACE9C-AC27-431D-A536-2BE7B12A1EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Contracts.Shelter", "IWS.Contracts.Shelter\IWS.Contracts.Shelter.csproj", "{946ADE47-A68C-41D2-A8AF-C81FA94E9197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Contracts.Shelter", "IWS.Contracts.Shelter\IWS.Contracts.Shelter.csproj", "{946ADE47-A68C-41D2-A8AF-C81FA94E9197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Events.Shelter", "IWS.Events.Shelter\IWS.Events.Shelter.csproj", "{ED97634B-F811-411C-B557-59C1D7A8EAD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Events.Shelter", "IWS.Events.Shelter\IWS.Events.Shelter.csproj", "{ED97634B-F811-411C-B557-59C1D7A8EAD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Events.Water", "IWS.Events.Water\IWS.Events.Water.csproj", "{D806B2C7-30D3-4230-85E2-A52EAE0605AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Events.Water", "IWS.Events.Water\IWS.Events.Water.csproj", "{D806B2C7-30D3-4230-85E2-A52EAE0605AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Contracts.Food", "IWS.Contracts.Food\IWS.Contracts.Food.csproj", "{BF955270-CC89-4E6D-B5C3-DF2A02ACD4C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Contracts.Food", "IWS.Contracts.Food\IWS.Contracts.Food.csproj", "{BF955270-CC89-4E6D-B5C3-DF2A02ACD4C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Events.Food", "IWS.Events.Food\IWS.Events.Food.csproj", "{D3B795B5-C76C-436B-B02A-B605F2F7AEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Events.Food", "IWS.Events.Food\IWS.Events.Food.csproj", "{D3B795B5-C76C-436B-B02A-B605F2F7AEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Food.Business", "IWS.Food.Business\IWS.Food.Business.csproj", "{4998D9E4-ACBB-48F9-944B-A43F30FE8261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Food.Business", "IWS.Food.Business\IWS.Food.Business.csproj", "{4998D9E4-ACBB-48F9-944B-A43F30FE8261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Food.Access", "IWS.Food.Access\IWS.Food.Access.csproj", "{3F373B02-07B8-4D1A-915D-674DFA94685E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Food.Access", "IWS.Food.Access\IWS.Food.Access.csproj", "{3F373B02-07B8-4D1A-915D-674DFA94685E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Food.Api", "IWS.Food.Api\src\IWS.Food.Api\IWS.Food.Api.csproj", "{D60BCC3E-2488-4C9B-B4B5-1FF467449CCF}"
 EndProject
@@ -79,13 +79,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscribers", "Subscribers"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscribers", "Subscribers", "{77152508-5A92-4A78-9F1E-F0333C9C9E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Shelter.Business", "IWS.Shelter.Business\IWS.Shelter.Business.csproj", "{C275B1C3-BCE3-4A61-82FE-DA3D6350C8AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Shelter.Business", "IWS.Shelter.Business\IWS.Shelter.Business.csproj", "{C275B1C3-BCE3-4A61-82FE-DA3D6350C8AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Shelter.Access", "IWS.Shelter.Access\IWS.Shelter.Access.csproj", "{8CE77742-152F-4702-B47C-68FADAFFF411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Shelter.Access", "IWS.Shelter.Access\IWS.Shelter.Access.csproj", "{8CE77742-152F-4702-B47C-68FADAFFF411}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Api", "IWS.Population.Api\src\IWS.Population.Api\IWS.Population.Api.csproj", "{3BC6AD75-F9E4-474C-BE85-CA5A87537974}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Population.Api.Tests", "IWS.Population.Api\test\IWS.Population.Api.Tests\IWS.Population.Api.Tests.csproj", "{939C687A-E21A-4337-9F86-3798EF28BCAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Subscriber", "IWS.Water.Subscriber\src\IWS.Water.Subscriber\IWS.Water.Subscriber.csproj", "{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IWS.Water.Subscriber.Tests", "IWS.Water.Subscriber\test\IWS.Water.Subscriber.Tests\IWS.Water.Subscriber.Tests.csproj", "{BA5D71FE-AF31-41C4-9678-F2590E013D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWS.Prototypes", "IWS.Prototypes\IWS.Prototypes.csproj", "{0640F43B-86B6-4761-8F4F-5701EE3E4EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -213,6 +219,18 @@ Global
 		{939C687A-E21A-4337-9F86-3798EF28BCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{939C687A-E21A-4337-9F86-3798EF28BCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{939C687A-E21A-4337-9F86-3798EF28BCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA5D71FE-AF31-41C4-9678-F2590E013D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5D71FE-AF31-41C4-9678-F2590E013D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5D71FE-AF31-41C4-9678-F2590E013D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA5D71FE-AF31-41C4-9678-F2590E013D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0640F43B-86B6-4761-8F4F-5701EE3E4EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0640F43B-86B6-4761-8F4F-5701EE3E4EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0640F43B-86B6-4761-8F4F-5701EE3E4EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0640F43B-86B6-4761-8F4F-5701EE3E4EA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -250,6 +268,8 @@ Global
 		{8CE77742-152F-4702-B47C-68FADAFFF411} = {B16D0962-1FC0-45AD-8CFD-7F93BE2A216A}
 		{3BC6AD75-F9E4-474C-BE85-CA5A87537974} = {4C746A67-599E-4EAF-BEC6-DA2C54D2918D}
 		{939C687A-E21A-4337-9F86-3798EF28BCAF} = {F106DAB3-2B94-4AC1-AB1B-39D3A747A654}
+		{E8EBED75-01F6-4702-B8BE-8EC7ED2C76E0} = {7C603C66-6EE7-438F-A4A4-42D8582470C4}
+		{BA5D71FE-AF31-41C4-9678-F2590E013D4D} = {2717096E-0EFA-421B-91D5-3A987D7890F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}

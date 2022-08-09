@@ -20,8 +20,6 @@ namespace IWS.Food.Api
 						(options => { options.BucketName = "iws-food-proto-001"; })
 					.AddAutoMapperWith(typeof(FoodMappingProfiles))
 					.AddAccessDefaults()
-					.AddApiMessageHandler()
-					.AddApiMessageSourceHandlerForType<FoodTick>()
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
 					.AddSingleton(new HierarchyTree(domainName))
 					.AddSingleton<FoodAccess, AwsS3FoodAccess>()

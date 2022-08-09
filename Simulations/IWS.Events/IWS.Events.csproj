@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
     <ProjectReference Include="..\MessageQueues\MessageQueues.csproj" />
   </ItemGroup>
 

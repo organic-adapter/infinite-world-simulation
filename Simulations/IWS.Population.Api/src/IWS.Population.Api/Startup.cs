@@ -20,8 +20,6 @@ namespace IWS.Population.Api
 						(options => { options.BucketName = "iws-population-proto-001"; })
 					.AddAutoMapperWith(typeof(PopulationMappingProfiles))
 					.AddAccessDefaults()
-					.AddApiMessageHandler()
-					.AddApiMessageSourceHandlerForType<PopulationTick>()
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
 					.AddSingleton(new HierarchyTree(domainName))
 					.AddSingleton<PopulationAccess, AwsS3PopulationAccess>()

@@ -20,8 +20,6 @@ namespace IWS.Water.Api
 						(options => { options.BucketName = "iws-water-proto-001"; })
 					.AddAutoMapperWith(typeof(WaterMappingProfiles))
 					.AddAccessDefaults()
-					.AddApiMessageHandler()
-					.AddApiMessageSourceHandlerForType<WaterTick>()
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
 					.AddSingleton(new HierarchyTree(domainName))
 					.AddSingleton<WaterAccess, AwsS3WaterAccess>()
