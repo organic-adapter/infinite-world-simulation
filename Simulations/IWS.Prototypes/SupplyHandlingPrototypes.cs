@@ -11,8 +11,8 @@ namespace IWS.Prototypes
 			var returnMe = Activator.CreateInstance<TOut>();
 			returnMe.Payload = new Contracts.Supply()
 			{
-				Quantity = demand.Payload.Quantity,
-				Type = demand.Payload.SupplyType,
+				Quantity = demand.Payload?.Quantity ?? default,
+				Type = demand.Payload?.SupplyType ?? string.Empty,
 			};
 
 			return returnMe;
