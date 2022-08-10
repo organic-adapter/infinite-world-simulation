@@ -35,7 +35,7 @@ namespace IWS.Water.Business
 			if (demand == null)
 				throw new ArgumentNullException();
 
-			WaterDispatched dispatch = demand.AlwaysDispatchWhatIsDemanded<WaterDemanded, WaterDispatched>();
+			WaterDispatched dispatch = demand.AlwaysDispatchHalfOfWhatIsDemanded<WaterDemanded, WaterDispatched>();
 
 			await waterAccess.SaveAsync(demand);
 			await waterAccess.SaveAsync(dispatch);

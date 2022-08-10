@@ -1,9 +1,10 @@
-﻿using IWS.Events;
+﻿using IWS.Common.Access;
+using IWS.Events;
 using IWS.Water.Access.Models;
 
 namespace IWS.Water.Access
 {
-	public interface WaterAccess
+	public interface WaterAccess : ResourceAccess
 	{
 		public Task RemoveAsync(string id);
 

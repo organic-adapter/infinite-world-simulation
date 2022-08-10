@@ -1,11 +1,7 @@
 {
   "profiles": {
     "IWS.Water.Subscriber.Tests": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "AWS_REGION": "us-east-1",
-        "AWS_PROFILE": "local-development"
-      }
+      "commandName": "Project"
     }
   }
 }

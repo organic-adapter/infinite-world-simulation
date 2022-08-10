@@ -12,27 +12,20 @@ namespace IWS.Water.Subscriber
 	{
 		public static IServiceProvider SetUp()
 		{
-			var coreSupplyBusConfiguration = new Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus>()
-			{
-				RegionEndpoint = Amazon.RegionEndpoint.USEast1
-		,
-				TopicArn = "arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001"
-			};
-
+			var coreSupplyBusConfiguration = AwsSnsStartup.GetCoreSupplyBusConfig();
 			var domainName = Contracts.Water.Constants.DomainName;
 
 			return ApiLambdaStartup
 				.Services()
-					.Configure<Common.Access.Aws.S3.AccessConfiguration<AwsS3WaterAccess>>
-						(options => { options.BucketName = "iws-water-proto-001"; })
-					.Configure(BuildOptions(coreSupplyBusConfiguration))
+					.Configure(CoreDomainStartup.BuildAccessConfiguration<AwsS3WaterAccess>())
+					.Configure(AwsSnsStartup.BuildOptions(coreSupplyBusConfiguration))
 					.AddAutoMapperWith(typeof(WaterMappingProfiles))
 					.AddAccessDefaults()
 					.AddApiMessageHandler()
 					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SNSEventHandler>()
 					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SQSEventHandler>()
 					.AddAwsSnsCoreSupplyBus()
-					.AddSnsConfig(coreSupplyBusConfiguration)
+					.AddSnsClient(coreSupplyBusConfiguration)
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
 					.AddSingleton(new HierarchyTree(domainName))
 					.AddSingleton<WaterAccess, AwsS3WaterAccess>()
@@ -40,13 +33,5 @@ namespace IWS.Water.Subscriber
 				.BuildServiceProvider();
 		}
 
-		private static Action<Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus>> BuildOptions(Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus> config)
-		{
-			return (Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus> options) =>
-			{
-				options.TopicArn = config.TopicArn;
-				options.RegionEndpoint = config.RegionEndpoint;
-			};
-		}
 	}
 }
