@@ -1,9 +1,10 @@
-﻿using System.Text.Json;
+﻿using Amazon.Lambda.SQSEvents;
+using System.Text.Json;
+using static Amazon.Lambda.SQSEvents.SQSEvent;
 
 namespace MessageQueues.Messages.SourceHandlers
 {
-	[Obsolete("Replace with AWS Event handlers")]
-	public class AwsSqsHandler : MessageSourceHandler<AwsSqsMessage>
+	public class SQSEventHandler : MessageSourceHandler<SQSEvent>
 	{
 		public override bool IsCompatible(Stream stream)
 		{
@@ -11,21 +12,7 @@ namespace MessageQueues.Messages.SourceHandlers
 			return unpackedResult.Successful && AnyRecordsHaveRequiredMembers(unpackedResult);
 		}
 
-		private static bool AnyRecordsHaveRequiredMembers(UnpackResult unpackResult)
-		{
-			return unpackResult.Value != null
-				&& unpackResult.Value.Records.Any(record => RecordHasRequiredMembers(record));
-		}
-
-		private static bool RecordHasRequiredMembers(AwsSqsRecord record)
-		{
-			return !string.IsNullOrEmpty(record.Body)
-				&& !string.IsNullOrEmpty(record.EventSource)
-				&& !string.IsNullOrEmpty(record.MessageId)
-				&& !string.IsNullOrEmpty(record.Md5OfBody);
-		}
-
-		protected override IEnumerable<TMessage> UnpackRecords<TMessage>(AwsSqsMessage? message)
+		protected override IEnumerable<TMessage> UnpackRecords<TMessage>(SQSEvent? message)
 		{
 			if (message == null)
 				throw new ArgumentNullException();
@@ -34,6 +21,20 @@ namespace MessageQueues.Messages.SourceHandlers
 				JsonSerializer.Deserialize<TMessage>(record.Body)
 					?? throw new MessageContainsPoisonPillRecord(record)
 			);
+		}
+
+		private static bool AnyRecordsHaveRequiredMembers(UnpackResult unpackResult)
+		{
+			return unpackResult.Value != null
+				&& unpackResult.Value.Records.Any(record => RecordHasRequiredMembers(record));
+		}
+
+		private static bool RecordHasRequiredMembers(SQSMessage record)
+		{
+			return !string.IsNullOrEmpty(record.Body)
+				&& !string.IsNullOrEmpty(record.EventSource)
+				&& !string.IsNullOrEmpty(record.MessageId)
+				&& !string.IsNullOrEmpty(record.Md5OfBody);
 		}
 	}
 }

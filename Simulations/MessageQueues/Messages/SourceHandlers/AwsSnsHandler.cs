@@ -2,6 +2,7 @@
 
 namespace MessageQueues.Messages.SourceHandlers
 {
+	[Obsolete("Replace with AWS Event handlers")]
 	public class AwsSnsHandler : MessageSourceHandler<AwsSnsMessage>
 	{
 		

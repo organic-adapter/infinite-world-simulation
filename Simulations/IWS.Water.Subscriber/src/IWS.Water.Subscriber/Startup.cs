@@ -30,7 +30,7 @@ namespace IWS.Water.Subscriber
 					.AddAccessDefaults()
 					.AddApiMessageHandler()
 					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SNSEventHandler>()
-					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.AwsSqsHandler>()
+					.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SQSEventHandler>()
 					.AddAwsSnsCoreSupplyBus()
 					.AddSnsConfig(coreSupplyBusConfiguration)
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
