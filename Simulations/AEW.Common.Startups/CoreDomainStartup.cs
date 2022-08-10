@@ -1,4 +1,4 @@
-﻿namespace IWS.Common.Startups
+﻿namespace AEW.Common.Startups
 {
 	public static class CoreDomainStartup
 	{

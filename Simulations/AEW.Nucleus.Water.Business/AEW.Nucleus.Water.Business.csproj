@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AEW.Common.Access\AEW.Common.Access.csproj" />
+    <ProjectReference Include="..\AEW.Events.Nucleus.Water\AEW.Events.Nucleus.Water.csproj" />
+    <ProjectReference Include="..\AEW.Nucleus.Water.Access\AEW.Nucleus.Water.Access.csproj" />
+    <ProjectReference Include="..\AEW.Prototypes\AEW.Prototypes.csproj" />
+  </ItemGroup>
+
+</Project>
