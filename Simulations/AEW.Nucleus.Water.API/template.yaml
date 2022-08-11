@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Sample SAM Template for AEW.Nucleus.Water.API
+  SAM Template for AEW.Nucleus.Water.API
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -46,32 +46,12 @@ Resources:
             - 's3:GetObjectAttributes'
             - 's3:GetObjectTagging'
             - 's3:DeleteObject'
-          Resource: !Sub 'arn:aws:s3:::aew-nucleus-water-${AWS::StackName}'
+          Resource: !Sub 'arn:aws:s3:::aew-nucleus-water-${AWS::StackName}/*'
   NucleusWaterS3:
     Type: AWS::S3::Bucket
     Description: 'S3 for AEW Nucleus for Water'
     Properties:
       BucketName: !Sub 'aew-nucleus-water-${AWS::StackName}'
-  NucleusWaterS3Policy:
-    Type: AWS::S3::BucketPolicy
-    Properties: 
-      Bucket: !Ref NucleusWaterS3
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Action:
-              - 's3:PutObject'
-              - 's3:GetObject'
-              - 's3:GetObjectAttributes'
-              - 's3:GetObjectTagging'
-              - 's3:DeleteObject'
-            Effect: Allow
-            Resource: !Join
-              - ''
-              - - 'arn:aws:s3:::'
-                - !Ref NucleusWaterS3
-                - /*
-            Principal: '*'
 Outputs:
   WebEndpoint:
     Description: 'API Gateway endpoint URL'
