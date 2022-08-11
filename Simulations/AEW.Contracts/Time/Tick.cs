@@ -2,6 +2,7 @@
 {
 	public class Tick
 	{
+		public static string CurrentTick = "current-tick";
 		public static Tick Empty = new Tick(string.Empty);
 
 		public Tick()

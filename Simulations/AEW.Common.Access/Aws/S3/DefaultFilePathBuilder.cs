@@ -36,6 +36,32 @@ namespace AEW.Common.Access.Aws.S3
 			return filePath;
 		}
 
+		public string GetFilePath<T>(string domainName, string prefix)
+		{
+			var lineage = domainHierarchy.GetLineage(domainName);
+			var rootPath = string.Join("/", lineage);
+			var fileTypeFolder = GetFileTypeFolder<T>();
+			var filePath = $"{rootPath}/{fileTypeFolder}/{prefix}.json";
+
+			return filePath;
+		}
+
+		public string GetFileTypeFolder<T>()
+		{
+			var type = typeof(T);
+			return GetFileTypeFolder(type);
+		}
+
+		public string GetFileTypeFolder(Type type)
+		{
+			foreach (var impType in type.GetInterfaces())
+			{
+				if (fileTypeFolderMap.ContainsKey(impType))
+					return fileTypeFolderMap[impType];
+			}
+			throw new FileTypeNotFound(type);
+		}
+
 		private string GetFileTypeFolder(DefinedByName obj)
 		{
 			var objType = obj.GetType();

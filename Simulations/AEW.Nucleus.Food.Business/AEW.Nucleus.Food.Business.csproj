@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AEW.Contracts.Nucleus.Food\AEW.Contracts.Nucleus.Food.csproj" />
+    <ProjectReference Include="..\AEW.Contracts.Water\AEW.Contracts.Nucleus.Water.csproj" />
     <ProjectReference Include="..\AEW.Events.Nucleus.Food\AEW.Events.Nucleus.Food.csproj" />
     <ProjectReference Include="..\AEW.Nucleus.Food.Access\AEW.Nucleus.Food.Access.csproj" />
     <ProjectReference Include="..\AEW.Prototypes\AEW.Prototypes.csproj" />
