@@ -1,0 +1,85 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AEW.Nucleus.Water.Subscriber
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+Parameters:
+  HiveName:
+    Type: String
+    Description: "The Hive Name for this Nucleus"
+  NucleusSupplyBusTopicArn:
+    Type: String
+    Description: "ARN for the Core Supply Bus Topic"
+  TopicFilterValueForWater:
+    Type: String
+    Description: "MessageType filter value ARN for the Core Supply Bus Topic"
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # This is a Lambda function config associated with the source code: hello-from-lambda.js
+  water:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./AEW.Nucleus.Water.Subscriber/src/AEW.Nucleus.Water.Subscriber/
+      Handler: AEW.Nucleus.Water.Subscriber::AEW.Nucleus.Water.Subscriber.Function::FunctionHandler
+      Runtime: dotnet6
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: Handles Subscriptions that the Nucleus Water is interested in.
+      Environment:
+        Variables:
+          NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
+          NUCLEUS_SUPPLY_TOPIC__ARN: !Ref NucleusSupplyBusTopicArn
+          HIVE__BUCKET__NAME: !Sub 'aew-nucleus-water-${HiveName}'
+          HIVE__BUCKET__REGION: !Ref 'AWS::Region'
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+          - Sid: 'NucleusWaterPersistencePolicy'
+            Effect: Allow
+            Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:GetObjectAttributes'
+              - 's3:GetObjectTagging'
+              - 's3:DeleteObject'
+            Resource: !Sub 'arn:aws:s3:::aew-nucleus-water-${HiveName}/*'
+          - Sid: 'NucleusWaterPublishPolicy'
+            Effect: Allow
+            Action:
+              - 'sns:Publish'
+            Resource: !Ref NucleusSupplyBusTopicArn
+  waterSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: lambda
+      Endpoint: !GetAtt water.Arn
+      TopicArn: !Ref NucleusSupplyBusTopicArn
+      FilterPolicy:
+        messageType: [!Ref TopicFilterValueForWater]
+  nsbInvokePolicy:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Principal: sns.amazonaws.com
+      Action: lambda:InvokeFunction
+      SourceArn: !Ref NucleusSupplyBusTopicArn
+      FunctionName: !GetAtt water.Arn
+Outputs:
+  waterARN:
+    Description: "ARN for new water Lambda"
+    Value: !GetAtt water.Arn

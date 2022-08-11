@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace MessageQueues.Messages
 {
@@ -70,7 +71,7 @@ namespace MessageQueues.Messages
 
 		protected virtual UnpackResult Unpack(Stream stream)
 		{
-			using (var reader = new StreamReader(stream))
+			using (var reader = new StreamReader(stream, Encoding.UTF8, true, short.MaxValue, true))
 			{
 				Json = reader.ReadToEnd();
 				try

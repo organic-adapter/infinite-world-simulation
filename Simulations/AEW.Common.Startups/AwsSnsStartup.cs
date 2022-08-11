@@ -26,8 +26,8 @@ namespace AEW.Common.Startups
 		{
 			var coreSupplyBusConfiguration = new Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus>()
 			{
-				RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("CORE_SUPPLY_TOPIC__REGION")),
-				TopicArn = Environment.GetEnvironmentVariable("CORE_SUPPLY_TOPIC__ARN") ?? throw new MissingEnvironmentVariable()
+				RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("NUCLEUS_SUPPLY_TOPIC__REGION")),
+				TopicArn = Environment.GetEnvironmentVariable("NUCLEUS_SUPPLY_TOPIC__ARN") ?? throw new MissingEnvironmentVariable()
 			};
 			return coreSupplyBusConfiguration;
 		}

@@ -31,8 +31,8 @@ Resources:
             Method: ANY
       Environment:
         Variables:
-          CORE_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
-          CORE_SUPPLY_TOPIC__ARN: 'arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001'
+          NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
+          NUCLEUS_SUPPLY_TOPIC__ARN: 'arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001'
           HIVE__BUCKET__NAME: !Sub 'aew-nucleus-water-${AWS::StackName}'
           HIVE__BUCKET__REGION: !Ref 'AWS::Region'
       Policies:
