@@ -24,9 +24,6 @@ builder.Services
 	.AddSnsClient(coreSupplyBusConfiguration)
 	.AddAwsSnsCoreSupplyBus()
 	.AddAccessDefaults(domainName)
-	.AddApiMessageHandler()
-	.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SNSEventHandler>()
-	.AddApiMessageSourceHandler<MessageQueues.Messages.SourceHandlers.SQSEventHandler>()
 	.AddSingleton(new HierarchyTree(domainName));
 
 builder.Services
