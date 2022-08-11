@@ -1,19 +1,19 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  SAM Template for AEW.Nucleus.Water.API
+  SAM Template for AEW.Nucleus.Food.API
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 100
 Resources:
-  NucleusWaterApi:
+  NucleusFoodApi:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      Description: API for AEW Nucleus for Water.
-      CodeUri: ./src/AEW.Nucleus.Water.API/
-      Handler: AEW.Nucleus.Water.API
+      Description: API for AEW Nucleus for Food.
+      CodeUri: ./src/AEW.Nucleus.Food.API/
+      Handler: AEW.Nucleus.Food.API
       Runtime: dotnet6
       MemorySize: 128    
       Events:
@@ -33,12 +33,12 @@ Resources:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
           NUCLEUS_SUPPLY_TOPIC__ARN: 'arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001'
-          HIVE__BUCKET__NAME: !Sub 'aew-nucleus-water-${AWS::StackName}'
+          HIVE__BUCKET__NAME: !Sub 'aew-nucleus-food-${AWS::StackName}'
           HIVE__BUCKET__REGION: !Ref 'AWS::Region'
       Policies:
       - 'AWSLambdaBasicExecutionRole'
       - Statement:
-        - Sid: 'NuclearWaterPersistencePolicy'
+        - Sid: 'NuclearFoodPersistencePolicy'
           Effect: Allow
           Action:
             - 's3:PutObject'
@@ -46,16 +46,16 @@ Resources:
             - 's3:GetObjectAttributes'
             - 's3:GetObjectTagging'
             - 's3:DeleteObject'
-          Resource: !Sub 'arn:aws:s3:::aew-nucleus-water-${AWS::StackName}/*'
-  NucleusWaterS3:
+          Resource: !Sub 'arn:aws:s3:::aew-nucleus-food-${AWS::StackName}/*'
+  NucleusFoodS3:
     Type: AWS::S3::Bucket
-    Description: 'S3 for AEW Nucleus for Water'
+    Description: 'S3 for AEW Nucleus for Food'
     Properties:
-      BucketName: !Sub 'aew-nucleus-water-${AWS::StackName}'
+      BucketName: !Sub 'aew-nucleus-food-${AWS::StackName}'
 Outputs:
   WebEndpoint:
     Description: 'API Gateway endpoint URL'
     Value: !Sub 'https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/'
-  NucleusWaterS3:
+  NucleusFoodS3:
     Description: Bucket Created using this template.
-    Value: !Ref NucleusWaterS3
+    Value: !Ref NucleusFoodS3
