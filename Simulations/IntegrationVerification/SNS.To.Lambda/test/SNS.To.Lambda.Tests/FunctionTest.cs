@@ -1,8 +1,6 @@
+using AEW.Events.Nucleus.Water;
 using Amazon.Lambda.SNSEvents;
 using Amazon.Lambda.TestUtilities;
-using Amazon.SimpleNotificationService.Model;
-using IWS.Events.Water;
-using MessageQueues.Messages;
 using System.Text.Json;
 using Xunit;
 using static Amazon.Lambda.SNSEvents.SNSEvent;
@@ -16,7 +14,7 @@ public class FunctionTest
 	{
 		var function = new Function();
 		var context = new TestLambdaContext();
-		var waterDemandedJson = JsonSerializer.Serialize(new WaterDemanded() { Payload = new IWS.Contracts.Demand() { Quantity = 2.0f, SupplyType = "Water" } });
+		var waterDemandedJson = JsonSerializer.Serialize(new WaterDemanded() { Payload = new AEW.Contracts.Demand() { Quantity = 2.0f, SupplyType = "Water" } });
 		var messageAttributes = new Dictionary<string, MessageAttribute>() { { "bucketName", new MessageAttribute() { Value = "iws-water-proto-001", Type = "String" } } };
 		var snsEvent = new SNSEvent()
 		{
