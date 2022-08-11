@@ -9,7 +9,7 @@ namespace AEW.Common.Startups
 	{
 		public static IServiceCollection AddAwsSnsCoreSupplyBus(this IServiceCollection services)
 		{
-			services.AddSingleton<Access.CoreSupplyBus, Access.Aws.Sns.CoreSupplyBus>();
+			services.AddSingleton<Access.NucleusSupplyBus, Access.Aws.Sns.NucleusSupplyBus>();
 
 			return services;
 		}
@@ -22,9 +22,9 @@ namespace AEW.Common.Startups
 			return services;
 		}
 
-		public static Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus> GetCoreSupplyBusConfig()
+		public static Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.NucleusSupplyBus> GetCoreSupplyBusConfig()
 		{
-			var coreSupplyBusConfiguration = new Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus>()
+			var coreSupplyBusConfiguration = new Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.NucleusSupplyBus>()
 			{
 				RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("NUCLEUS_SUPPLY_TOPIC__REGION")),
 				TopicArn = Environment.GetEnvironmentVariable("NUCLEUS_SUPPLY_TOPIC__ARN") ?? throw new MissingEnvironmentVariable()
@@ -33,9 +33,9 @@ namespace AEW.Common.Startups
 		}
 
 
-		public static Action<Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus>> BuildOptions(Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus> config)
+		public static Action<Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.NucleusSupplyBus>> BuildOptions(Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.NucleusSupplyBus> config)
 		{
-			return (Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.CoreSupplyBus> options) =>
+			return (Common.Access.Aws.Sns.BusConfiguration<Common.Access.Aws.Sns.NucleusSupplyBus> options) =>
 			{
 				options.TopicArn = config.TopicArn;
 				options.RegionEndpoint = config.RegionEndpoint;

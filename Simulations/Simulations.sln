@@ -103,13 +103,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Water.Subscribe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Water.Subscriber", "Subscribers\AEW.Nucleus.Water.Subscriber\src\AEW.Nucleus.Water.Subscriber\AEW.Nucleus.Water.Subscriber.csproj", "{E97A2A24-A3E4-4313-BDE8-EBFAA63FC3CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.Contracts.Nucleus.Food", "AEW.Contracts.Nucleus.Food\AEW.Contracts.Nucleus.Food.csproj", "{B07220A6-D7BD-462A-BD1F-80DD12A15A37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Contracts.Nucleus.Food", "AEW.Contracts.Nucleus.Food\AEW.Contracts.Nucleus.Food.csproj", "{B07220A6-D7BD-462A-BD1F-80DD12A15A37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.Nucleus.Food.Access", "AEW.Nucleus.Food.Access\AEW.Nucleus.Food.Access.csproj", "{44694DE2-F0D0-47BE-8FDB-A131CE019AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Food.Access", "AEW.Nucleus.Food.Access\AEW.Nucleus.Food.Access.csproj", "{44694DE2-F0D0-47BE-8FDB-A131CE019AE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.Events.Nucleus.Food", "AEW.Events.Nucleus.Food\AEW.Events.Nucleus.Food.csproj", "{EAE96F7A-2292-43AC-9CA5-E1819F0BC0A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Events.Nucleus.Food", "AEW.Events.Nucleus.Food\AEW.Events.Nucleus.Food.csproj", "{EAE96F7A-2292-43AC-9CA5-E1819F0BC0A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.Nucleus.Food.Business", "AEW.Nucleus.Food.Business\AEW.Nucleus.Food.Business.csproj", "{8F21A1FD-851B-43A7-8B9C-F2C1A3AE6F12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Food.Business", "AEW.Nucleus.Food.Business\AEW.Nucleus.Food.Business.csproj", "{8F21A1FD-851B-43A7-8B9C-F2C1A3AE6F12}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21DFE9C7-A17A-4F04-9FB7-DB88B42235A1}"
 EndProject
@@ -118,6 +118,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Food.Api.Tests", "AEW.Nucleus.Food.Api\tests\AEW.Nucleus.Food.Api.Tests\AEW.Nucleus.Food.Api.Tests.csproj", "{9C93BC71-2EB6-4B44-9E1E-76FA8C3E7BFE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Food.Api", "AEW.Nucleus.Food.Api\src\AEW.Nucleus.Food.Api\AEW.Nucleus.Food.Api.csproj", "{023B54C2-A132-459F-AAE7-03C352B3373E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.Nucleus.Food.Subscriber", "Subscribers\AEW.Nucleus.Food.Subscriber\src\AEW.Nucleus.Food.Subscriber\AEW.Nucleus.Food.Subscriber.csproj", "{DDCF8112-A652-4BA2-B051-BF6225C40654}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -289,6 +291,10 @@ Global
 		{023B54C2-A132-459F-AAE7-03C352B3373E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{023B54C2-A132-459F-AAE7-03C352B3373E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{023B54C2-A132-459F-AAE7-03C352B3373E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDCF8112-A652-4BA2-B051-BF6225C40654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDCF8112-A652-4BA2-B051-BF6225C40654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDCF8112-A652-4BA2-B051-BF6225C40654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDCF8112-A652-4BA2-B051-BF6225C40654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -344,6 +350,7 @@ Global
 		{64C6D05F-8C86-4FE5-8E19-6EE5B571FADD} = {21DFE9C7-A17A-4F04-9FB7-DB88B42235A1}
 		{9C93BC71-2EB6-4B44-9E1E-76FA8C3E7BFE} = {4BDFD178-9A47-4F3A-97A1-D9CB137B7108}
 		{023B54C2-A132-459F-AAE7-03C352B3373E} = {516DDD30-CEF3-4C37-84CD-E48EAE5A7FB2}
+		{DDCF8112-A652-4BA2-B051-BF6225C40654} = {7C603C66-6EE7-438F-A4A4-42D8582470C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}

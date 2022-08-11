@@ -9,19 +9,19 @@ namespace AEW.Nucleus.Water.Business
 {
 	public class AnatomyWaterManager : WaterManager
 	{
-		private readonly NotificationBus coreSupplyBus;
+		private readonly NotificationBus nucleusSupplyBus;
 		private readonly IMapper mapper;
 		private readonly WaterAccess waterAccess;
 
 		public AnatomyWaterManager
 				(
 					IMapper mapper,
-					CoreSupplyBus coreSupplyBus,
+					NucleusSupplyBus nucleusSupplyBus,
 					WaterAccess waterAccess
 				)
 		{
 			this.mapper = mapper;
-			this.coreSupplyBus = coreSupplyBus;
+			this.nucleusSupplyBus = nucleusSupplyBus;
 			this.waterAccess = waterAccess;
 		}
 
@@ -45,7 +45,7 @@ namespace AEW.Nucleus.Water.Business
 			await waterAccess.SaveAsync(demand);
 			await waterAccess.SaveAsync(dispatch);
 
-			await coreSupplyBus.PublishAsync(dispatch);
+			await nucleusSupplyBus.PublishAsync(dispatch);
 		}
 
 		public async Task ProcessDemands(IEnumerable<WaterDemanded>? demands)

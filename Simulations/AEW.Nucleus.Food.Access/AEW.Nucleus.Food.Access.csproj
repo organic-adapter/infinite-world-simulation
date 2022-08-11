@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AEW.Common.Access\AEW.Common.Access.csproj" />
     <ProjectReference Include="..\AEW.Contracts.Nucleus.Food\AEW.Contracts.Nucleus.Food.csproj" />
+    <ProjectReference Include="..\AEW.Events\AEW.Events.csproj" />
   </ItemGroup>
 
 </Project>
