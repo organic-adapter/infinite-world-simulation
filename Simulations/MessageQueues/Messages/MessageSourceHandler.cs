@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace MessageQueues.Messages
 {
@@ -12,16 +13,13 @@ namespace MessageQueues.Messages
 		public string Json { get; set; }
 		public abstract Type MessageType { get; }
 
-		public abstract void Handle<T>(Stream stream, Action<T?> action)
+		public abstract void HandleAll<T>(Stream stream, Action<IEnumerable<T>> action)
 			where T : class;
 
-		public abstract Task HandleAsync<T>(Stream stream, Func<T?, Task> action)
+		public abstract Task HandleAllAsync<T>(Stream stream, Func<IEnumerable<T>, Task> action)
 			where T : class;
 
-		public abstract Task<T> HandleAsync<T>(Stream stream, Func<T?, Task<T>> action)
-			where T : class;
-
-		public abstract Task<T> HandleAsync<T>(Stream stream, Func<string?, Task<T>> action)
+		public abstract Task<IEnumerable<T>> HandleAllAsync<T>(Stream stream, Func<IEnumerable<T>, Task<IEnumerable<T>>> action)
 			where T : class;
 
 		public abstract bool IsCompatible(Stream stream);
@@ -30,53 +28,57 @@ namespace MessageQueues.Messages
 	public abstract class MessageSourceHandler<T> : MessageSourceHandler
 		where T : class
 	{
+		protected static T Empty = Activator.CreateInstance<T>();
+
 		public override Type MessageType => typeof(T);
-		public T? Value { get; set; }
 
-		public override void Handle<T1>(Stream stream, Action<T1?> action)
-			where T1 : class
+		public T UnpackedValue { get; set; } = Empty;
+
+		public override void HandleAll<TMessage>(Stream stream, Action<IEnumerable<TMessage>> action)
+									where TMessage : class
 		{
-			if (Value == null)
+			if (UnpackedValue == Empty)
 				Unpack(stream);
 
-			action(Value as T1);
+			var messages = UnpackRecords<TMessage>(UnpackedValue);
+			action(messages);
 		}
 
-		public override async Task HandleAsync<T1>(Stream stream, Func<T1?, Task> action)
-			where T1 : class
+		public override async Task HandleAllAsync<TMessage>(Stream stream, Func<IEnumerable<TMessage>, Task> action)
+			where TMessage : class
 		{
-			if (Value == null)
+			if (UnpackedValue == Empty)
 				Unpack(stream);
 
-			await action(Value as T1);
+			var messages = UnpackRecords<TMessage>(UnpackedValue);
+			await action(messages);
 		}
 
-		public override async Task<T1> HandleAsync<T1>(Stream stream, Func<T1?, Task<T1>> action)
-			where T1 : class
+		public override async Task<IEnumerable<TMessage>> HandleAllAsync<TMessage>(Stream stream, Func<IEnumerable<TMessage>, Task<IEnumerable<TMessage>>> action)
+			where TMessage : class
 		{
-			if (Value == null)
+			if (UnpackedValue == Empty)
 				Unpack(stream);
 
-			return await action(Value as T1);
+			var messages = UnpackRecords<TMessage>(UnpackedValue);
+			return await action(messages);
 		}
 
-		public override async Task<T1> HandleAsync<T1>(Stream stream, Func<string?, Task<T1>> action)
+		protected virtual T? Deserialize(string json)
 		{
-			var id = GetId(stream);
-
-			return await action(id);
+			return JsonSerializer.Deserialize<T>(json);
 		}
 
 		protected virtual UnpackResult Unpack(Stream stream)
 		{
-			using (var reader = new StreamReader(stream))
+			using (var reader = new StreamReader(stream, Encoding.UTF8, true, short.MaxValue, true))
 			{
 				Json = reader.ReadToEnd();
 				try
 				{
-					Value = JsonSerializer.Deserialize<T>(Json);
+					UnpackedValue = JsonSerializer.Deserialize<T>(Json) ?? Empty;
 					stream.Position = 0;
-					return UnpackResult.Ok(Value);
+					return UnpackResult.Ok(UnpackedValue);
 				}
 				catch
 				{
@@ -86,10 +88,17 @@ namespace MessageQueues.Messages
 			}
 		}
 
-		private string GetId(Stream stream)
+		protected abstract IEnumerable<TMessage> UnpackRecords<TMessage>(T? message)
+			where TMessage : class;
+
+		public class MessageContainsPoisonPillRecord : Exception
 		{
-			using (var reader = new StreamReader(stream))
-				return reader.ReadToEnd().Replace("\"", ""); //HACK. The Lambda Invoke is wrapping the parameter in double quotes.
+			public MessageContainsPoisonPillRecord(object messageObject)
+			{
+				MessageObject = messageObject;
+			}
+
+			public object? MessageObject { get; set; }
 		}
 
 		public class UnpackResult

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.9.35" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.90" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AEW.Common\AEW.Common.csproj" />
+    <ProjectReference Include="..\AEW.Contracts\AEW.Contracts.csproj" />
+    <ProjectReference Include="..\MessageQueues\MessageQueues.csproj" />
+  </ItemGroup>
+
+</Project>

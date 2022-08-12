@@ -2,7 +2,11 @@
 
 namespace IWS.Events
 {
-	public class Event<T> : MessageBody<T>
+	public interface Event
+	{
+
+	}
+	public class Event<T> : MessageBody<T>, Event
 		where T : class
 	{
 		public Event()

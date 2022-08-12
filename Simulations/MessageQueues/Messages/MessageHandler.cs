@@ -9,33 +9,25 @@
 			this.messageSourceHandlers = messageSourceHandlers;
 		}
 
-		public void Handle<T>(Stream stream, Action<T?> action)
+		public void HandleAll<T>(Stream stream, Action<IEnumerable<T>> action)
 			where T : class
 		{
 			var handler = FirstCompatibleHandler(stream);
-			handler.Handle(stream, action);
+			handler.HandleAll(stream, action);
 		}
 
-		public async Task HandleAsync<T>(Stream stream, Func<T?, Task> action)
+		public async Task HandleAllAsync<T>(Stream stream, Func<IEnumerable<T>, Task> action)
 			where T : class
 		{
 			var handler = FirstCompatibleHandler(stream);
-			await handler.HandleAsync(stream, action);
+			await handler.HandleAllAsync(stream, action);
 		}
 
-		public async Task<T> HandleAsync<T>(Stream stream, Func<T?, Task<T>> action)
+		public async Task<IEnumerable<T>> HandleAllAsync<T>(Stream stream, Func<IEnumerable<T>, Task<IEnumerable<T>>> action)
 			where T : class
 		{
 			var handler = FirstCompatibleHandler(stream);
-			var response = await handler.HandleAsync(stream, action);
-			return response;
-		}
-
-		public async Task<T> HandleAsync<T>(Stream stream, Func<string?, Task<T>> action)
-			where T : class
-		{
-			var handler = FirstCompatibleHandler(stream);
-			var response = await handler.HandleAsync(stream, action);
+			var response = await handler.HandleAllAsync(stream, action);
 			return response;
 		}
 

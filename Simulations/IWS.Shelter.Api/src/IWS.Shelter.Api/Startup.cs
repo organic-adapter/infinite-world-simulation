@@ -20,8 +20,6 @@ namespace IWS.Shelter.Api
 						(options => { options.BucketName = "iws-shelter-proto-001"; })
 					.AddAutoMapperWith(typeof(ShelterMappingProfiles))
 					.AddAccessDefaults()
-					.AddApiMessageHandler()
-					.AddApiMessageSourceHandlerForType<ShelterTick>()
 					.AddSingleton(DomainHierarchyBuilder.Build(domainName))
 					.AddSingleton(new HierarchyTree(domainName))
 					.AddSingleton<ShelterAccess, AwsS3ShelterAccess>()

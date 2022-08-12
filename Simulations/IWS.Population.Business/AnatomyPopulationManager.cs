@@ -35,7 +35,7 @@ namespace IWS.Population.Business
 			return await populationAccess.RetrieveAsync(id);
 		}
 
-		public async Task<PopulationTick> SaveAsync(PopulationTick populationTick)
+		public async Task<PopulationTick> SaveAsync(PopulationTick? populationTick)
 		{
 			var saveMe = mapper.Map<Access.Models.PopulationTick>(populationTick);
 			//TODO: tick-history needs to be saved here as well.

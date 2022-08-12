@@ -8,11 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.7.9.35" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.90" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IWS.Common\IWS.Common.csproj" />
     <ProjectReference Include="..\IWS.Contracts\IWS.Contracts.csproj" />
+    <ProjectReference Include="..\IWS.Events\IWS.Events.csproj" />
   </ItemGroup>
 
 </Project>
