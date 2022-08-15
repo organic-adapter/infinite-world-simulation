@@ -22,7 +22,7 @@ namespace AEW.Nucleus.Food.Access
 			this.options = options;
 		}
 
-		public async Task<FoodTick> GetLastTick(string domainName)
+		public async Task<FoodTick> GetLastTickAsync(string domainName)
 		{
 			return await GetAsync<FoodTick>(domainName, Tick.CurrentTick);
 		}

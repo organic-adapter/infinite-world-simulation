@@ -5,7 +5,7 @@ namespace AEW.Nucleus.Food.Access
 {
 	public interface FoodAccess
 	{
-		public Task<FoodTick> GetLastTick(string domainName);
+		public Task<FoodTick> GetLastTickAsync(string domainName);
 
 		public Task RemoveAsync(string id);
 

@@ -21,7 +21,13 @@ namespace AEW.Nucleus.Food.Business.Engines
 			defaultRequirements.Add(typeof(Contracts.Nucleus.Water.WaterSupply).AssemblyQualifiedName.ThrowIfNullOrEmpty(), minimumRequirementDefault);
 		}
 
-		public Dictionary<string, float> Grow(FoodTick foodTick)
+		public async Task<Dictionary<string, float>> SuppliesNeededAsync()
+		{
+			Access.Models.FoodTick lastTick = await access.GetLastTickAsync(domainName);
+			return Grow(lastTick);
+		}
+
+		private Dictionary<string, float> Grow(FoodTick foodTick)
 		{
 			if (!foodTick.Requirements.Demands.Any())
 				return defaultRequirements;
@@ -33,12 +39,6 @@ namespace AEW.Nucleus.Food.Business.Engines
 				returnMe.Add(requirement.SupplyType, newQuantity);
 			}
 			return returnMe;
-		}
-
-		public async Task<Dictionary<string, float>> SuppliesNeededAsync()
-		{
-			Access.Models.FoodTick lastTick = await access.GetLastTick(domainName);
-			return Grow(lastTick);
 		}
 	}
 }
