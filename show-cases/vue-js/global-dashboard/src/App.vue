@@ -15,7 +15,7 @@ export default {
 <template>
   <div class="app">
     <MDBNavbar expand="md" dark bg="dark" container>
-      <MDBNavbarBrand href="#">Hi!</MDBNavbarBrand>
+      <MDBNavbarBrand href="/">Aether Essence World</MDBNavbarBrand>
       <MDBNavbarToggler
         @click="navCollapse = !navCollapse"
         target="#navbarSupportedContent"
@@ -23,6 +23,7 @@ export default {
       <MDBCollapse v-model="navCollapse" id="navbarSupportedContent">
         <MDBNavbarNav class="mb-2 mb-lg-0">
           <MDBNavbarItem to="/"> Main </MDBNavbarItem>
+          <MDBNavbarItem to="/hives"> Hives </MDBNavbarItem>
           <MDBNavbarItem href="#/about"> About </MDBNavbarItem>
         </MDBNavbarNav>
       </MDBCollapse>
@@ -30,6 +31,9 @@ export default {
     <MDBContainer fluid>
       <router-view />
     </MDBContainer>
+    <MDBFooter bg="dark" :text="['center', 'lg-start']" class="app-footer">
+      <div>&copy; 2022</div>
+    </MDBFooter>
   </div>
 </template>
 
@@ -40,5 +44,50 @@ export default {
   color: var(--light-fg);
   background-color: var(--dark-bg);
   height: 100vh;
+}
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
+.valid {
+  border-color: var(--success-fg);
+  .valid {
+    display: initial;
+    color: var(--success-fg);
+    border: 1px;
+    border-color: var(--success-fg);
+    background-color: var(--success-bg);
+  }
+  .invalid {
+    display: none;
+  }
+  .pending {
+    display: none;
+  }
+}
+
+.invalid {
+  border-color: var(--failure-fg);
+  .valid {
+    display: none;
+  }
+  .invalid {
+    display: initial;
+    color: var(--failure-fg);
+    border: 1px;
+    border-color: var(--failure-fg);
+    background-color: var(--failure-bg);
+  }
+  .pending {
+    display: none;
+  }
+}
+.form-control {
+  &.dark {
+    color: var(--mdb-light);
+    background-color: var(--mdb-dark);
+  }
 }
 </style>

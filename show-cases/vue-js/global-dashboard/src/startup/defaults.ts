@@ -9,7 +9,11 @@ import {
     MDBDropdown,
     MDBDropdownToggle,
     MDBDropdownMenu,
-    MDBDropdownItem
+    MDBDropdownItem,
+    MDBFooter,
+    MDBInput,
+    MDBRow,
+    MDBIcon,
 } from 'mdb-vue-ui-kit';
 import { MDBContainer } from 'mdb-vue-ui-kit';
 export default {
@@ -28,6 +32,10 @@ export default {
             .component('MDBDropdownMenu', MDBDropdownMenu)
             .component('MDBDropdownItem', MDBDropdownItem)
             .component('MDBContainer', MDBContainer)
+            .component('MDBFooter', MDBFooter)
+            .component('MDBInput', MDBInput)
+            .component('MDBRow', MDBRow)
+            .component('MDBIcon', MDBRow)
         ;
     }
 }
