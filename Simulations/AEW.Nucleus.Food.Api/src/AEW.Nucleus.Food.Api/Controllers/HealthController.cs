@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace AEW.Nucleus.Food.API.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("food/api/[controller]")]
 	[Produces("application/json")]
 	public class HealthController : ControllerBase
 	{

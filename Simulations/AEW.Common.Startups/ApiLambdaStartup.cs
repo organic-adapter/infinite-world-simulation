@@ -15,7 +15,7 @@ namespace AEW.Common.Startups
 		}
 		public static IServiceCollection AddAccessDefaults(this IServiceCollection services)
 		{
-			services.AddSingleton<FilePathBuilder, DefaultFilePathBuilder>();
+			services.AddTransient<FilePathBuilder, DefaultFilePathBuilder>();
 
 			return _services;
 		}
@@ -23,14 +23,14 @@ namespace AEW.Common.Startups
 		{
 			services
 				.AddSingleton(DomainHierarchyBuilder.Build(domainName))
-				.AddSingleton<FilePathBuilder, DefaultFilePathBuilder>();
+				.AddTransient<FilePathBuilder, DefaultFilePathBuilder>();
 
 			return _services;
 		}
 
 		public static IServiceCollection AddApiMessageHandler(this IServiceCollection services)
 		{
-			services.AddSingleton<MessageHandler>();
+			services.AddTransient<MessageHandler>();
 
 			return services;
 		}
@@ -38,7 +38,7 @@ namespace AEW.Common.Startups
 		public static IServiceCollection AddApiMessageSourceHandler<T>(this IServiceCollection services)
 			where T : MessageSourceHandler
 		{
-			services.AddSingleton<MessageSourceHandler, T>();
+			services.AddTransient<MessageSourceHandler, T>();
 
 			return services;
 		}

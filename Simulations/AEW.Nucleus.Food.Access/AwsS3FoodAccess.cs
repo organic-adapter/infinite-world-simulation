@@ -1,5 +1,6 @@
 ﻿using AEW.Common.Access.Aws.S3;
 using AEW.Contracts;
+using AEW.Contracts.Time;
 using AEW.Events;
 using AEW.Nucleus.Food.Access.Models;
 using Microsoft.Extensions.Options;
@@ -21,6 +22,11 @@ namespace AEW.Nucleus.Food.Access
 			this.options = options;
 		}
 
+		public async Task<FoodTick> GetLastTickAsync(string domainName)
+		{
+			return await GetAsync<FoodTick>(domainName, Tick.CurrentTick);
+		}
+
 		public async Task RemoveAsync(string id)
 		{
 			throw new NotImplementedException();
@@ -33,6 +39,7 @@ namespace AEW.Nucleus.Food.Access
 
 		public async Task<FoodTick> SaveAsync(FoodTick FoodTick)
 		{
+			await PutAsync(FoodTick, Tick.CurrentTick);
 			return await PutAsync(FoodTick, FoodTick.Tick);
 		}
 

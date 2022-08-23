@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AEW.Common.Access\AEW.Common.Access.csproj" />
+    <ProjectReference Include="..\AEW.Contracts\AEW.Contracts.csproj" />
+    <ProjectReference Include="..\AEW.Events\AEW.Events.csproj" />
+  </ItemGroup>
+
+</Project>

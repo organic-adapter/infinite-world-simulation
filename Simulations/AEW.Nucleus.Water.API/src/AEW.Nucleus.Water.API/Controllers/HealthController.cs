@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace AEW.Nucleus.Water.API.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("water/api/[controller]")]
 	[Produces("application/json")]
 	public class HealthController : ControllerBase
 	{

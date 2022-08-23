@@ -1,7 +1,7 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
-using AEW.Contracts;
+﻿using AEW.Contracts;
 using AEW.Contracts.Time;
+using Amazon.S3;
+using Amazon.S3.Model;
 using System.Text.Json;
 
 namespace AEW.Common.Access.Aws.S3
@@ -15,6 +15,18 @@ namespace AEW.Common.Access.Aws.S3
 		{
 			this.bucketName = bucketName;
 			this.filePathBuilder = filePathBuilder;
+		}
+
+		protected GetObjectRequest GenerateBaseGetRequest<T>(string domainName, string fileName)
+			where T : DefinedByName, Unique
+		{
+			var id = filePathBuilder.GetFilePath<T>(domainName, fileName);
+			var getRequest = new GetObjectRequest()
+			{
+				BucketName = bucketName,
+				Key = id,
+			};
+			return getRequest;
 		}
 
 		protected GetObjectRequest GenerateBaseGetRequest(string id)
@@ -44,6 +56,15 @@ namespace AEW.Common.Access.Aws.S3
 			return putRequest;
 		}
 
+		protected PutObjectRequest GeneratePutRequest<T>(T putMe, string name)
+			where T : DefinedByName, Unique
+		{
+			var filePath = filePathBuilder.GetFilePath<T>(putMe.DomainName, name);
+			var putRequest = GenerateBasePutRequest(putMe, filePath);
+
+			return putRequest;
+		}
+
 		protected PutObjectRequest GeneratePutRequest<T>(T putMe)
 			where T : DefinedByName, Unique
 		{
@@ -62,11 +83,8 @@ namespace AEW.Common.Access.Aws.S3
 			return putRequest;
 		}
 
-		protected async Task<T> GetAsync<T>(string id)
-				where T : DefinedByName, Unique
+		protected async Task<T> GetAsync<T>(GetObjectRequest getRequest)
 		{
-			var getRequest = GenerateBaseGetRequest(id);
-
 			try
 			{
 				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
@@ -90,6 +108,25 @@ namespace AEW.Common.Access.Aws.S3
 			}
 		}
 
+		protected async Task<T> GetAsync<T>(string domainName, string id)
+			where T : DefinedByName, Unique
+		{
+			var getRequest = GenerateBaseGetRequest<T>(domainName, id);
+			return await GetAsync<T>(getRequest);
+		}
+
+		protected async Task<T> GetAsync<T>(string id)
+			where T : DefinedByName, Unique
+		{
+			var getRequest = GenerateBaseGetRequest(id);
+			return await GetAsync<T>(getRequest);
+		}
+
+		protected async Task<string> GetRootPathFor<T>()
+		{
+			return await Task.Run(() => filePathBuilder.GetFileTypeFolder<T>());
+		}
+
 		protected async Task<T> PutAsync<T>(LogItem<T> putMe)
 			where T : class
 		{
@@ -97,12 +134,24 @@ namespace AEW.Common.Access.Aws.S3
 				throw new NullReferenceException();
 
 			var putRequest = GenerateLogPutRequest(putMe);
+			await PutAsync(putRequest);
+			return putMe.Payload;
+		}
 
+		protected async Task<T> PutAsync<T>(T putMe, string name)
+			where T : DefinedByName, Unique
+		{
+			var putRequest = GeneratePutRequest(putMe, name);
+			await PutAsync(putRequest);
+			return putMe;
+		}
+
+		protected async Task PutAsync(PutObjectRequest putRequest)
+		{
 			try
 			{
 				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
 				PutObjectResponse response = await client.PutObjectAsync(putRequest);
-				return putMe.Payload;
 			}
 			catch (AmazonS3Exception amazonS3Exception)
 			{
@@ -124,31 +173,19 @@ namespace AEW.Common.Access.Aws.S3
 			where T : DefinedByName, Unique
 		{
 			var putRequest = GeneratePutRequest(putMe, tick);
+			await PutAsync(putRequest);
+			return putMe;
+		}
 
-			try
-			{
-				IAmazonS3 client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
-				PutObjectResponse response = await client.PutObjectAsync(putRequest);
-				return putMe;
-			}
-			catch (AmazonS3Exception amazonS3Exception)
-			{
-				if (amazonS3Exception.ErrorCode != null &&
-					(amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
-					||
-					amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
-				{
-					throw new Exception("Check the provided AWS Credentials.");
-				}
-				else
-				{
-					throw new Exception($"Error occurred:  {amazonS3Exception.Message}:::{putRequest.BucketName}=>{putRequest.Key}");
-				}
-			}
+		private static T SetIdIfMissing<T>(T obj, string id)
+			where T : DefinedByName, Unique
+		{
+			obj.Id = string.IsNullOrEmpty(obj.Id) ? id : obj.Id;
+			return obj;
 		}
 
 		private PutObjectRequest GenerateLogPutRequest<T>(T putMe)
-					where T : LogItem
+							where T : LogItem
 		{
 			var filePath = $"logs/{typeof(T).GenericTypeArguments[0].Name.ToLower()}/{putMe.Id}.json";
 			var body = JsonSerializer.Serialize(putMe);
@@ -160,13 +197,6 @@ namespace AEW.Common.Access.Aws.S3
 				Key = filePath,
 			};
 			return putRequest;
-		}
-
-		private T SetIdIfMissing<T>(T obj, string id)
-			where T : DefinedByName, Unique
-		{
-			obj.Id = string.IsNullOrEmpty(obj.Id) ? id : obj.Id;
-			return obj;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 {
 	public class Tick
 	{
-		public static Tick Empty = new Tick(string.Empty);
+		public static Tick Empty = new(string.Empty);
 
 		public Tick()
 		{
@@ -15,5 +15,6 @@
 		}
 
 		public string Id { get; set; }
+		public int Index { get; set; }
 	}
 }

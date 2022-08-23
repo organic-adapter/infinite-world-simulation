@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AEW.Nucleus.Food.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("food/api/[controller]")]
 [Produces("application/json")]
 public class FoodTickController : ControllerBase
 {
