@@ -22,6 +22,7 @@ const hiveName = computed({
     store.dispatch("hives/setFocusByName", value);
   },
 });
+
 const isValidFocus = computed(() => {
   return store.getters["hives/hiveByName"](hiveName.value) !== null;
 });
@@ -33,6 +34,7 @@ const validationClass = () => {
 const selectHive = (hive: Hive) => {
   store.commit("hives/setFocus", hive);
 };
+
 onMounted(() => {
   store.dispatch("hives/getActiveHives");
 });

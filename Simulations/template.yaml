@@ -3,17 +3,39 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   SAM Template to deploy Nucleus APIs
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Parameters:
+  JwtIssuer:
+    Type: String
+    Description: For AWS Cognito https://cognito-idp.{region}.amazonaws.com/{userPoolId}
+  JwtAudience:
+    Type: String
+    Description: The audience associated with this authorizer
+
 Globals:
   Function:
     Timeout: 100
+
 Resources:
+  AewGateway:
+    Type: "AWS::Serverless::HttpApi"
+    Properties:
+      StageName: !Sub 'public'
+      Auth:
+        Authorizers:
+          OAuth2Authorizer:
+            IdentitySource: "$request.header.Authorization"
+            JwtConfiguration:
+              issuer: !Ref JwtIssuer
+              audience: 
+              - !Ref JwtAudience
+        DefaultAuthorizer: OAuth2Authorizer
   NucleusSupplyBusTopic:
     Type: AWS::SNS::Topic
     Properties:
       DisplayName: "Nucleus Supply Bus"
       FifoTopic: false
       TopicName: !Sub "aew-nucleus-supply-bus-${AWS::StackName}"
+  
 ########### START WATER
   NucleusWaterApi:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -27,15 +49,17 @@ Resources:
         ProxyResource:
           Type: HttpApi
           Properties:
+            ApiId: !Ref AewGateway
             PayloadFormatVersion: '2.0'
             Path: water/{proxy+}
-            Method: ANY
+            Method: GET
         RootResource:
           PayloadFormatVersion: '2.0'
           Type: HttpApi
           Properties:
+            ApiId: !Ref AewGateway
             Path: water/
-            Method: ANY
+            Method: GET
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
@@ -73,15 +97,17 @@ Resources:
         ProxyResource:
           Type: HttpApi
           Properties:
+            ApiId: !Ref AewGateway
             PayloadFormatVersion: '2.0'
             Path: food/{proxy+}
-            Method: ANY
+            Method: GET
         RootResource:
           PayloadFormatVersion: '2.0'
           Type: HttpApi
           Properties:
+            ApiId: !Ref AewGateway
             Path: food/
-            Method: ANY
+            Method: GET
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
@@ -107,9 +133,6 @@ Resources:
       BucketName: !Sub 'aew-nucleus-food-${AWS::StackName}'
 ########## END FOOD
 Outputs:
-  WebEndpoint:
-    Description: 'API Gateway endpoint URL'
-    Value: !Sub 'https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/'
   NucleusWaterS3:
     Description: Bucket Created using this template.
     Value: !Ref NucleusWaterS3
