@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\..\..\AEW.ShowCases.Access\AEW.ShowCases.Access.csproj" />
+    <ProjectReference Include="..\..\..\AEW.ShowCases.Business\AEW.ShowCases.Business.csproj" />
   </ItemGroup>
 
 </Project>

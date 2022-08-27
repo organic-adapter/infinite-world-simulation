@@ -10,6 +10,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@aws-sdk/credential-providers": "^3.157.0",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "d3": "^7.6.1",
     "mdb-vue-ui-kit": "^2.0.0",

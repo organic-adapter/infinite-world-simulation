@@ -1,15 +1,15 @@
 import { createStore } from 'vuex'
 import hives from './hives';
+import actions from './actions';
+import state from './state';
 
 export default createStore({
-  state: {
-  },
+  state,
   getters: {
   },
   mutations: {
   },
-  actions: {
-  },
+  actions,
   modules: {
     hives
   }

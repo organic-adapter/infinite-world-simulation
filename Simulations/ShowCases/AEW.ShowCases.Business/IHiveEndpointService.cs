@@ -1,8 +1,8 @@
 ﻿using AEW.Contracts.ShowCases;
 
-namespace AEW.ShowCases.Access
+namespace AEW.ShowCases.Business
 {
-	public interface IHiveEndpointAccess
+	public interface IHiveEndpointService
 	{
 		public Task<IEnumerable<HiveDetails>> GetEndpointsAsync();
 	}

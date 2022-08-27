@@ -1,12 +1,12 @@
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 export default {
   setup() {
     const navCollapse = ref(false);
-
     return {
       navCollapse,
+      onMounted
     };
   },
 };

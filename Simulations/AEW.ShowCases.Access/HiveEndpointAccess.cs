@@ -1,13 +1,28 @@
-﻿namespace AEW.ShowCases.Access
+﻿using AEW.Contracts.ShowCases;
+using Microsoft.Extensions.Options;
+
+namespace AEW.ShowCases.Access
 {
 	public class HiveEndpointAccess : IHiveEndpointAccess
 	{
-		private const string BASE_END_POINT = "https://fpnfkk4jpg.execute-api.us-east-1.amazonaws.com/public";
+		private readonly IOptionsMonitor<EndpointConfiguration> options;
 
-		public async IAsyncEnumerator<string> GetEndpointsAsync()
+		public HiveEndpointAccess(IOptionsMonitor<EndpointConfiguration> options)
 		{
-			yield return $"{BASE_END_POINT}/water";
-			yield return $"{BASE_END_POINT}/food";
+			this.options = options;
+		}
+
+		private string BaseEndPoint => options.CurrentValue.BaseEndPoint;
+		private string Name => options.CurrentValue.HiveName;
+		public async Task<IEnumerable<HiveDetails>> GetEndpointsAsync()
+		{
+			return await Task.Run(
+				() => new List<HiveDetails>()
+				{
+					new() { Name = Name, BaseEndpoint = $"{BaseEndPoint}/water" },
+					new() { Name = Name, BaseEndpoint = $"{BaseEndPoint}/food" },
+				}
+			);
 		}
 	}
 }

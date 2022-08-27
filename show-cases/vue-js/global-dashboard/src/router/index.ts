@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { auth } from './security';
 import MainView from '../views/MainView.vue'
 import HivesView from '../views/HivesView.vue'
+import { Services } from "@/assets/services";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,6 +28,13 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, from) => {
+  if (!auth.confirm()) {
+    const services = new Services();
+    services.checkAuth();
+  }
 })
 
 export default router

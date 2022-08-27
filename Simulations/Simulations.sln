@@ -133,9 +133,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShowCases", "ShowCases", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.ShowCases.API", "ShowCases\AEW.ShowCases.API\src\AEW.ShowCases.API\AEW.ShowCases.API.csproj", "{B07746D7-3D3E-4598-80D6-6579673B3FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.ShowCases.Business", "ShowCases\AEW.ShowCases.Business\AEW.ShowCases.Business.csproj", "{0B5DC7B2-478A-4DBB-B8B1-4D43BD33B79E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.ShowCases.Business", "ShowCases\AEW.ShowCases.Business\AEW.ShowCases.Business.csproj", "{0B5DC7B2-478A-4DBB-B8B1-4D43BD33B79E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.ShowCases.Access", "AEW.ShowCases.Access\AEW.ShowCases.Access.csproj", "{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AEW.ShowCases.Access", "AEW.ShowCases.Access\AEW.ShowCases.Access.csproj", "{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AEW.Contracts.ShowCases", "AEW.Contracts.ShowCases\AEW.Contracts.ShowCases.csproj", "{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -331,6 +333,10 @@ Global
 		{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,6 +399,7 @@ Global
 		{B07746D7-3D3E-4598-80D6-6579673B3FD6} = {1923E6B8-8BD7-4529-969B-313BCC3DB2FE}
 		{0B5DC7B2-478A-4DBB-B8B1-4D43BD33B79E} = {1923E6B8-8BD7-4529-969B-313BCC3DB2FE}
 		{4983D2C3-E0FA-47CD-AFE4-1043A758AAD1} = {1923E6B8-8BD7-4529-969B-313BCC3DB2FE}
+		{9224E6B0-A6F1-4CD4-B7C2-5E00490DBDB9} = {1923E6B8-8BD7-4529-969B-313BCC3DB2FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {553F3816-797A-4132-99DE-C7F9ABBABB13}
