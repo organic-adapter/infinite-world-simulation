@@ -10,6 +10,9 @@ Parameters:
   JwtAudience:
     Type: String
     Description: The audience associated with this authorizer
+  NucleusSnsArn:
+    Type: String
+    Description: The ARN of the Nucleus SNS.
 
 Globals:
   Function:
@@ -20,15 +23,28 @@ Resources:
     Type: "AWS::Serverless::HttpApi"
     Properties:
       StageName: !Sub 'public'
-      Auth:
-        Authorizers:
-          OAuth2Authorizer:
-            IdentitySource: "$request.header.Authorization"
-            JwtConfiguration:
-              issuer: !Ref JwtIssuer
-              audience: 
-              - !Ref JwtAudience
-        DefaultAuthorizer: OAuth2Authorizer
+      CorsConfiguration:
+        AllowHeaders:
+          - "*"
+        ExposeHeaders:
+          - "*"
+        AllowOrigins:
+          - "http://localhost:8080"
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        AllowCredentials: true
+      # Auth:
+      #   Authorizers:
+      #     OAuth2Authorizer:
+      #       IdentitySource: "$request.header.Authorization"
+      #       JwtConfiguration:
+      #         issuer: !Ref JwtIssuer
+      #         audience: 
+      #         - !Ref JwtAudience
+      #   DefaultAuthorizer: OAuth2Authorizer
   NucleusSupplyBusTopic:
     Type: AWS::SNS::Topic
     Properties:
@@ -63,7 +79,7 @@ Resources:
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
-          NUCLEUS_SUPPLY_TOPIC__ARN: 'arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001'
+          NUCLEUS_SUPPLY_TOPIC__ARN: !Ref NucleusSnsArn
           HIVE__BUCKET__NAME: !Sub 'aew-nucleus-water-${AWS::StackName}'
           HIVE__BUCKET__REGION: !Ref 'AWS::Region'
       Policies:
@@ -111,7 +127,7 @@ Resources:
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
-          NUCLEUS_SUPPLY_TOPIC__ARN: 'arn:aws:sns:us-east-1:686681529839:iws-core-supply-proto-001'
+          NUCLEUS_SUPPLY_TOPIC__ARN: !Ref NucleusSnsArn
           HIVE__BUCKET__NAME: !Sub 'aew-nucleus-food-${AWS::StackName}'
           HIVE__BUCKET__REGION: !Ref 'AWS::Region'
       Policies:

@@ -1,10 +1,12 @@
 import { Hive } from "@/models/Hive";
-
+import { services } from "@/services";
 export default {
-    getActiveHives: (context: any) => {
+    getActiveHives: async (context: any) => {
         context.state.activeHives.splice(0);
-        context.state.activeHives.push(new Hive("Mock-001"));
-        context.state.activeHives.push(new Hive("Mock-002"));
+        const hives = await services.getHiveEndpoints();
+        hives.forEach((hive) => {
+            context.state.activeHives.push(new Hive(hive.name, hive.baseEndpoint));
+        });
     },
     setFocusByName: (context: any, hiveName: string) => {
         const hive = context.getters["hiveByName"](hiveName);
@@ -13,4 +15,8 @@ export default {
         else
             context.commit("setFocus", hive);
     },
+    getWaterTick: async (context: any) => {
+        const endpoint = context.getters["focus"].endpoint;        
+        await services.getWaterTick(endpoint, "standard-tick-.json");
+    }
 }

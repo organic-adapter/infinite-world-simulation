@@ -5,6 +5,16 @@ using AEW.ShowCases.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var localOnlyOrigins = "_localOnlyOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: localOnlyOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:8080");
+                      });
+});
+
 //Logger
 builder.Logging
         .ClearProviders()
@@ -37,6 +47,9 @@ builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.UseCors(localOnlyOrigins);
+
 app.UseAuthorization();
 app.MapControllers();
 

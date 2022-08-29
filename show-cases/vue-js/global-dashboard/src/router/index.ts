@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { auth } from './security';
 import MainView from '../views/MainView.vue'
 import HivesView from '../views/HivesView.vue'
-import { Services } from "@/assets/services";
+import { security } from "@/services/security";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,10 +30,12 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
-  if (!auth.confirm()) {
-    const services = new Services();
-    services.checkAuth();
+router.beforeEach(async () => {
+  if (!(await auth.confirm())) {
+    security.checkAuth();
+  }
+  else if (window.location.href !== `${window.location.origin}${window.location.pathname}#/`) {
+    window.location.href = `${window.location.origin}${window.location.pathname}`
   }
 })
 

@@ -35,7 +35,7 @@ export default {
             .component('MDBFooter', MDBFooter)
             .component('MDBInput', MDBInput)
             .component('MDBRow', MDBRow)
-            .component('MDBIcon', MDBRow)
+            .component('MDBIcon', MDBIcon)
         ;
     }
 }

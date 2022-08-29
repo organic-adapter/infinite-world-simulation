@@ -19,8 +19,7 @@ namespace AEW.ShowCases.Access
 			return await Task.Run(
 				() => new List<HiveDetails>()
 				{
-					new() { Name = Name, BaseEndpoint = $"{BaseEndPoint}/water" },
-					new() { Name = Name, BaseEndpoint = $"{BaseEndPoint}/food" },
+					new() { Name = Name, BaseEndpoint = $"{BaseEndPoint}" },
 				}
 			);
 		}
