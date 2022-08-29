@@ -2,7 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   SAM Template to deploy Nucleus APIs
-
+# Something in this template is causing it to create 2 integrations and is damaging
+# the API Proxy to the Lambdas.
+# Something has changed since the last time I spun one of these up.
+# - According to the logs
+# -- The IAM role configured on the integration or API Gateway doesn't have permissions to call the integration. Check the permissions and try again.
+# It wasn't doing this a week ago. Either there was a fluke policy lurking somewhere that has since been deleted
+# Or CloudFormation changed it's mind on how it spins up the API
+# I have confirmed that the API is set to "auto provision", however, it is not doing it.
+# We will need to trace down how to create an explicit invoke policy in this template.
 Parameters:
   JwtIssuer:
     Type: String
@@ -69,13 +77,13 @@ Resources:
             PayloadFormatVersion: '2.0'
             Path: water/{proxy+}
             Method: GET
-        RootResource:
-          PayloadFormatVersion: '2.0'
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref AewGateway
-            Path: water/
-            Method: GET
+        # RootResource:
+        #   PayloadFormatVersion: '2.0'
+        #   Type: HttpApi
+        #   Properties:
+        #     ApiId: !Ref AewGateway
+        #     Path: water/
+        #     Method: GET
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
@@ -117,13 +125,13 @@ Resources:
             PayloadFormatVersion: '2.0'
             Path: food/{proxy+}
             Method: GET
-        RootResource:
-          PayloadFormatVersion: '2.0'
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref AewGateway
-            Path: food/
-            Method: GET
+        # RootResource:
+        #   PayloadFormatVersion: '2.0'
+        #   Type: HttpApi
+        #   Properties:
+        #     ApiId: !Ref AewGateway
+        #     Path: food/
+        #     Method: GET
       Environment:
         Variables:
           NUCLEUS_SUPPLY_TOPIC__REGION: !Ref 'AWS::Region'
